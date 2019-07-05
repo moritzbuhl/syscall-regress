@@ -1,0 +1,66 @@
+/*	$OpenBSD$	*/
+/*
+ * Copyright (c) 2019 Moritz Buhl <openbsd@moritzbuhl.de>
+ *
+ * Permission to use, copy, modify, and distribute this software for any
+ * purpose with or without fee is hereby granted, provided that the above
+ * copyright notice and this permission notice appear in all copies.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+ * WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+ * MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+ * ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+ * WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+ * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+ * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+ */
+
+#if !defined(ATF_C_H)
+#define ATF_C_H
+
+#include <stdio.h>
+
+#include <err.h>
+
+/* error.h */
+
+/* macros.h */
+#define ATF_TC(fn)							\
+void atf_##fn(void);							\
+void atf_head_##fn(void);						\
+void atf_body_##fn(void);						\
+void									\
+atf_##fn(void)								\
+{									\
+	atf_head_##fn();						\
+	atf_body_##fn();						\
+}
+
+#define ATF_TC_WITH_CLEANUP(fn)						\
+void atf_##fn(void);							\
+void atf_head_##fn(void);						\
+void atf_body_##fn(void);						\
+void atf_cleanup_##fn(void);						\
+void									\
+atf_##fn(void)								\
+{									\
+	atf_head_##fn();						\
+	atf_body_##fn();						\
+	atf_cleanup_##fn();						\
+}
+
+#define ATF_TC_HEAD(fn, tc)	void atf_head_##fn(void)
+#define ATF_TC_BODY(fn, tc) 	void atf_body_##fn(void)
+#define ATF_TC_CLEANUP(fn, tc)	void atf_cleanup_##fn(void)
+
+#define ATF_TP_ADD_TCS(tp)	int main(void)
+#define ATF_TP_ADD_TC(tp, fn)	atf_##fn()
+
+#define atf_tc_set_md_var(tc, attr, fmt, ...)				\
+	printf(attr ": " fmt "\n", ##__VA_ARGS__)
+
+#define ATF_REQUIRE(exp)		if (!(exp)) err(1, __func__)
+
+#define atf_no_error()	0
+
+#endif /* !defined(ATF_C_H) */

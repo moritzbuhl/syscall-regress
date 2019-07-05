@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_access.c,v 1.2 2017/01/10 22:36:29 christos Exp $ */
 
 /*-
@@ -28,10 +29,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_access.c,v 1.2 2017/01/10 22:36:29 christos Exp $");
 
-#include <atf-c.h>
+#include "atf-c.h"
 
 #include <sys/stat.h>
 
