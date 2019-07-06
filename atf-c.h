@@ -25,7 +25,10 @@
 #include <err.h>
 
 extern int atf_skip;
-int atf_run(int *);
+int atf_test(int, int);
+
+#define ATF_RUN_TEST		1
+#define ATF_CLEANUP_TEST	2
 
 #define ATF_TC_FUNCTIONS(fn)						\
 void atf_##fn(void);							\
@@ -45,7 +48,6 @@ atf_##fn(void)								\
 		return;							\
 	}								\
 	atf_body_##fn();						\
-	atf_cleanup_##fn();						\
 }
 
 #define ATF_TC(fn)							\
@@ -61,13 +63,20 @@ ATF_RUN_TC(fn)
 #define ATF_TC_BODY(fn, tc) 	void atf_body_##fn(void)
 #define ATF_TC_CLEANUP(fn, tc)	void atf_cleanup_##fn(void)
 
-#define ATF_TP_ADD_TCS(tp)	int atf_run(int *run)
-#define ATF_TP_ADD_TC(tp, fn)	(*run)--;				\
-	if (*run == 0) {						\
-		atf_##fn();						\
+#define ATF_TP_ADD_TCS(tp)	int atf_test(int tst, int what)
+#define ATF_TP_ADD_TC(tp, fn)	tst--;					\
+	if (tst == 0) {							\
+		if (what == ATF_RUN_TEST)				\
+			atf_##fn();					\
+		else if (what == ATF_CLEANUP_TEST)			\
+			atf_cleanup_##fn();				\
 		return 0;						\
 	}
-	
+
+#define atf_no_error()	(-tst)
+
+#define ATF_RUN(i)		atf_test(i, ATF_RUN_TEST)
+#define ATF_CLEANUP(i)		atf_test(i, ATF_CLEANUP_TEST)
 
 #define atf_tc_set_md_var(tc, attr, fmt, ...)				\
 	if (strcmp(attr, "descr") == 0) {				\
@@ -89,7 +98,6 @@ ATF_RUN_TC(fn)
 #define ATF_REQUIRE_ERRNO(no, exp)	if (!(exp) || errno != no) 	\
 	err(1, ": " #exp " and errno != " #no)
 
-#define atf_no_error()	0
 #define atf_tc_fail(fmt, ...)		err(1, fmt, ##__VA_ARGS__)
 
 #endif /* !defined(ATF_C_H) */

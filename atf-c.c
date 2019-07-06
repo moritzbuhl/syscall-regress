@@ -17,23 +17,26 @@ void test_exec(int);
 int
 main(int argc, char *argv[])
 {
-	int run, i, sta;
+	int test, i, sta;
 	const char *errstr;
 
 	if (argc == 1) {
-		run = 0;
+		test = 0;
 	} else if (argc == 2) {
-		run = strtonum(argv[1], 1, INT_MAX, &errstr);
+		test = strtonum(argv[1], 1, INT_MAX, &errstr);
 		if (errstr != NULL)
 			errx(1, "test # is %s: %s", errstr, argv[1]);
+		ATF_RUN(test);
+		return 0;
 	}
-	atf_run(&run);
 
-	for (i = 1; i <= -run; i++) {
+	test = atf_test(0, 0);
+	for (i = 1; i <= test; i++) {
 		test_exec(i);
 		wait(&sta);
 		if (WIFEXITED(sta) == 0 || WEXITSTATUS(sta) != EXIT_SUCCESS)
 			printf("FAILED\n");
+		ATF_CLEANUP(i);
 	}
 	return 0;
 }
