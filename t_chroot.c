@@ -47,7 +47,7 @@ __RCSID("$NetBSD: t_chroot.c,v 1.2 2017/01/10 22:36:29 christos Exp $");
 #include <string.h>
 #include <unistd.h>
 
-ATF_TC(chroot_basic);
+ATF_TC_WITH_CLEANUP(chroot_basic);
 ATF_TC_HEAD(chroot_basic, tc)
 {
 	atf_tc_set_md_var(tc, "descr", "A basic test of chroot(2)");
@@ -109,6 +109,18 @@ ATF_TC_BODY(chroot_basic, tc)
 
 	ATF_REQUIRE(close(fd) == 0);
 	ATF_REQUIRE(unlink(buf) == 0);
+}
+
+/* Added for OpenBSD */
+ATF_TC_CLEANUP(chroot_basic, tc)
+{
+	char buf[PATH_MAX];
+
+	(void)memset(buf, '\0', sizeof(buf));
+	(void)getcwd(buf, sizeof(buf));
+	(void)strlcat(buf, "/dir", sizeof(buf));
+
+	ATF_REQUIRE(rmdir(buf) == 0);
 }
 
 ATF_TC(chroot_err);
