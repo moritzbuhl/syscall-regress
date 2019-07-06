@@ -32,6 +32,13 @@ main(int argc, char *argv[])
 
 	test = atf_test(0, 0);
 	for (i = 1; i <= test; i++) {
+		ATF_INIT(i);
+		if (atf_skip) {
+			atf_skip = 0;
+			printf("SKIPPED\n");
+			continue;
+		}
+
 		test_exec(i);
 		wait(&sta);
 		if (WIFEXITED(sta) == 0 || WEXITSTATUS(sta) != EXIT_SUCCESS)

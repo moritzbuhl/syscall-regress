@@ -27,37 +27,21 @@
 extern int atf_skip;
 int atf_test(int, int);
 
-#define ATF_RUN_TEST		1
-#define ATF_CLEANUP_TEST	2
+#define ATF_INIT_TEST		1
+#define ATF_RUN_TEST		2
+#define ATF_CLEANUP_TEST	3
 
 #define ATF_TC_FUNCTIONS(fn)						\
-void atf_##fn(void);							\
 void atf_head_##fn(void);						\
 void atf_body_##fn(void);						\
 void atf_cleanup_##fn(void);						\
 
-#define ATF_RUN_TC(fn)							\
-void									\
-atf_##fn(void)								\
-{									\
-	atf_head_##fn();						\
-	printf("\n");							\
-	if (atf_skip) {							\
-		atf_skip = 0;						\
-		printf("SKIPPED\n");					\
-		return;							\
-	}								\
-	atf_body_##fn();						\
-}
-
 #define ATF_TC(fn)							\
 ATF_TC_FUNCTIONS(fn)							\
-void atf_cleanup_##fn(void) { return; }					\
-ATF_RUN_TC(fn)
+void atf_cleanup_##fn(void) { return; }	
 
 #define ATF_TC_WITH_CLEANUP(fn)						\
-ATF_TC_FUNCTIONS(fn)							\
-ATF_RUN_TC(fn)
+ATF_TC_FUNCTIONS(fn)
 
 #define ATF_TC_HEAD(fn, tc)	void atf_head_##fn(void)
 #define ATF_TC_BODY(fn, tc) 	void atf_body_##fn(void)
@@ -66,8 +50,10 @@ ATF_RUN_TC(fn)
 #define ATF_TP_ADD_TCS(tp)	int atf_test(int tst, int what)
 #define ATF_TP_ADD_TC(tp, fn)	tst--;					\
 	if (tst == 0) {							\
-		if (what == ATF_RUN_TEST)				\
-			atf_##fn();					\
+		if (what == ATF_INIT_TEST)				\
+			atf_head_##fn();				\
+		else if (what == ATF_RUN_TEST)				\
+			atf_body_##fn();				\
 		else if (what == ATF_CLEANUP_TEST)			\
 			atf_cleanup_##fn();				\
 		return 0;						\
@@ -75,6 +61,8 @@ ATF_RUN_TC(fn)
 
 #define atf_no_error()	(-tst)
 
+#define ATF_INIT(i)		atf_test(i, ATF_INIT_TEST);		\
+				printf("\n");
 #define ATF_RUN(i)		atf_test(i, ATF_RUN_TEST)
 #define ATF_CLEANUP(i)		atf_test(i, ATF_CLEANUP_TEST)
 
