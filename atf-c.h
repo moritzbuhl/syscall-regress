@@ -27,28 +27,13 @@
 extern int atf_skip;
 int atf_run(int *);
 
-#define ATF_TC(fn)							\
-void atf_##fn(void);							\
-void atf_head_##fn(void);						\
-void atf_body_##fn(void);						\
-void									\
-atf_##fn(void)								\
-{									\
-	atf_head_##fn();						\
-	printf("\n");							\
-	if (atf_skip) {							\
-		atf_skip = 0;						\
-		printf("SKIPPED\n");					\
-		return;							\
-	}								\
-	atf_body_##fn();						\
-}
-
-#define ATF_TC_WITH_CLEANUP(fn)						\
+#define ATF_TC_FUNCTIONS(fn)						\
 void atf_##fn(void);							\
 void atf_head_##fn(void);						\
 void atf_body_##fn(void);						\
 void atf_cleanup_##fn(void);						\
+
+#define ATF_RUN_TC(fn)							\
 void									\
 atf_##fn(void)								\
 {									\
@@ -62,6 +47,15 @@ atf_##fn(void)								\
 	atf_body_##fn();						\
 	atf_cleanup_##fn();						\
 }
+
+#define ATF_TC(fn)							\
+ATF_TC_FUNCTIONS(fn)							\
+void atf_cleanup_##fn(void) { return; }					\
+ATF_RUN_TC(fn)
+
+#define ATF_TC_WITH_CLEANUP(fn)						\
+ATF_TC_FUNCTIONS(fn)							\
+ATF_RUN_TC(fn)
 
 #define ATF_TC_HEAD(fn, tc)	void atf_head_##fn(void)
 #define ATF_TC_BODY(fn, tc) 	void atf_body_##fn(void)
