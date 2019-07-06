@@ -5,3 +5,5 @@
 
 #define __RCSID(str)
 #define __arraycount(_a)	nitems(_a)
+
+#define fchroot(fd) 0

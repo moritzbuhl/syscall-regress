@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_chroot.c,v 1.2 2017/01/10 22:36:29 christos Exp $ */
 
 /*-
@@ -28,13 +29,16 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_chroot.c,v 1.2 2017/01/10 22:36:29 christos Exp $");
 
 #include <sys/wait.h>
 #include <sys/stat.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
@@ -306,9 +310,12 @@ ATF_TP_ADD_TCS(tp)
 	ATF_TP_ADD_TC(tp, chroot_basic);
 	ATF_TP_ADD_TC(tp, chroot_err);
 	ATF_TP_ADD_TC(tp, chroot_perm);
-	ATF_TP_ADD_TC(tp, fchroot_basic);
-	ATF_TP_ADD_TC(tp, fchroot_err);
-	ATF_TP_ADD_TC(tp, fchroot_perm);
+/*
+ *	Not available on OpenBSD
+ *	ATF_TP_ADD_TC(tp, fchroot_basic);
+ *	ATF_TP_ADD_TC(tp, fchroot_err);
+ *	ATF_TP_ADD_TC(tp, fchroot_perm);
+ */
 
 	return atf_no_error();
 }

@@ -19,12 +19,14 @@
 #define ATF_C_H
 
 #include <stdio.h>
+#include <string.h>
+#include <unistd.h>
 
 #include <err.h>
 
-/* error.h */
+extern int atf_skip;
+int atf_run(int *);
 
-/* macros.h */
 #define ATF_TC(fn)							\
 void atf_##fn(void);							\
 void atf_head_##fn(void);						\
@@ -33,6 +35,12 @@ void									\
 atf_##fn(void)								\
 {									\
 	atf_head_##fn();						\
+	printf("\n");							\
+	if (atf_skip) {							\
+		atf_skip = 0;						\
+		printf("SKIPPED\n");					\
+		return;							\
+	}								\
 	atf_body_##fn();						\
 }
 
@@ -45,6 +53,12 @@ void									\
 atf_##fn(void)								\
 {									\
 	atf_head_##fn();						\
+	printf("\n");							\
+	if (atf_skip) {							\
+		atf_skip = 0;						\
+		printf("SKIPPED\n");					\
+		return;							\
+	}								\
 	atf_body_##fn();						\
 	atf_cleanup_##fn();						\
 }
@@ -53,14 +67,35 @@ atf_##fn(void)								\
 #define ATF_TC_BODY(fn, tc) 	void atf_body_##fn(void)
 #define ATF_TC_CLEANUP(fn, tc)	void atf_cleanup_##fn(void)
 
-#define ATF_TP_ADD_TCS(tp)	int main(void)
-#define ATF_TP_ADD_TC(tp, fn)	atf_##fn()
+#define ATF_TP_ADD_TCS(tp)	int atf_run(int *run)
+#define ATF_TP_ADD_TC(tp, fn)	(*run)--;				\
+	if (*run == 0) {						\
+		atf_##fn();						\
+		return 0;						\
+	}
+	
 
 #define atf_tc_set_md_var(tc, attr, fmt, ...)				\
-	printf(attr ": " fmt "\n", ##__VA_ARGS__)
+	if (strcmp(attr, "descr") == 0) {				\
+		printf(fmt, ##__VA_ARGS__);				\
+	} else if (strcmp(attr, "require.user") == 0) {			\
+		if (strcmp(fmt, "unprivileged") == 0) {			\
+			if (getuid() == 0)				\
+				if (setuid(0x7fff) == -1)		\
+					err(1, "setuid nobody");	\
+			printf(" as unprivileged");			\
+		} else {						\
+			if (getuid() != 0)				\
+				atf_skip = 1;				\
+			printf(" as " fmt, ##__VA_ARGS__);		\
+		}							\
+	}
 
 #define ATF_REQUIRE(exp)		if (!(exp)) err(1, __func__)
+#define ATF_REQUIRE_ERRNO(no, exp)	if (!(exp) || errno != no) 	\
+	err(1, ": " #exp " and errno != " #no)
 
 #define atf_no_error()	0
+#define atf_tc_fail(fmt, ...)		err(1, fmt, ##__VA_ARGS__)
 
 #endif /* !defined(ATF_C_H) */
