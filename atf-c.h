@@ -18,6 +18,7 @@
 #if !defined(ATF_C_H)
 #define ATF_C_H
 
+#include <pwd.h>
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -25,6 +26,9 @@
 #include <err.h>
 
 extern int atf_skip;
+extern char atf_descr[];
+extern char atf_user[];
+
 int atf_test(int, int);
 
 #define ATF_INIT_TEST		1
@@ -61,25 +65,26 @@ ATF_TC_FUNCTIONS(fn)
 
 #define atf_no_error()	(-tst)
 
-#define ATF_INIT(i)		atf_test(i, ATF_INIT_TEST);		\
-				printf("\n");
+#define ATF_INIT(i)		atf_test(i, ATF_INIT_TEST)
 #define ATF_RUN(i)		atf_test(i, ATF_RUN_TEST)
 #define ATF_CLEANUP(i)		atf_test(i, ATF_CLEANUP_TEST)
 
 #define atf_tc_set_md_var(tc, attr, fmt, ...)				\
 	if (strcmp(attr, "descr") == 0) {				\
-		printf(fmt, ##__VA_ARGS__);				\
+		if (snprintf(atf_descr, 2048, fmt, ##__VA_ARGS__) == -1)\
+			err(1, "snprintf atf_descr");			\
 	} else if (strcmp(attr, "require.user") == 0) {			\
 		if (strcmp(fmt, "unprivileged") == 0) {			\
 			if (getuid() == 0)				\
 				if (setuid(0x7fff) == -1)		\
 					err(1, "setuid nobody");	\
-			printf(" as unprivileged");			\
-		} else {						\
+		} else if (strcmp(fmt, "root") == 0) {			\
 			if (getuid() != 0)				\
 				atf_skip = 1;				\
-			printf(" as " fmt, ##__VA_ARGS__);		\
 		}							\
+		if (snprintf(atf_user, _PW_NAME_LEN + 5, "as " fmt,	\
+		    ##__VA_ARGS__) == -1)				\
+			err(1, "snprintf atf_user");			\
 	}
 
 #define ATF_REQUIRE(exp)		if (!(exp)) err(1, __func__)

@@ -6,33 +6,47 @@
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <pwd.h>
 #include <unistd.h>
 
 #include "atf-c.h"
 
 int atf_skip = 0;
+char atf_descr[2048];
+char atf_user[_PW_NAME_LEN + 5];
 
+void tests_run(int);
 void test_exec(int);
 
 int
 main(int argc, char *argv[])
 {
-	int test, i, sta;
+	int test;
 	const char *errstr;
 
-	if (argc == 1) {
-		test = 0;
-	} else if (argc == 2) {
+	if (argc == 2) {
 		test = strtonum(argv[1], 1, INT_MAX, &errstr);
 		if (errstr != NULL)
 			errx(1, "test # is %s: %s", errstr, argv[1]);
 		ATF_RUN(test);
 		return 0;
+	} else if (argc != 1) {
+		fprintf(stderr, "usage: %s [test#]\n", getprogname());
+		exit(2);
 	}
 
-	test = atf_test(0, 0);
-	for (i = 1; i <= test; i++) {
+	tests_run(atf_test(0, 0));
+	return 0;
+}
+
+void
+tests_run(int tests)
+{
+	int i, sta;
+	for (i = 1; i <= tests; i++) {
 		ATF_INIT(i);
+		printf("%s %s\n", atf_descr, atf_user);
+		atf_user[0] = '\0';
 		if (atf_skip) {
 			atf_skip = 0;
 			printf("SKIPPED\n");
@@ -43,9 +57,10 @@ main(int argc, char *argv[])
 		wait(&sta);
 		if (WIFEXITED(sta) == 0 || WEXITSTATUS(sta) != EXIT_SUCCESS)
 			printf("FAILED\n");
+		else
+			printf("SUCCESS\n");
 		ATF_CLEANUP(i);
 	}
-	return 0;
 }
 
 void
