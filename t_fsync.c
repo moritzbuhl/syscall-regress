@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_fsync.c,v 1.2 2012/03/18 07:00:52 jruoho Exp $ */
 
 /*-
@@ -28,6 +29,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_fsync.c,v 1.2 2012/03/18 07:00:52 jruoho Exp $");
 
@@ -38,7 +42,7 @@ __RCSID("$NetBSD: t_fsync.c,v 1.2 2012/03/18 07:00:52 jruoho Exp $");
 #include <string.h>
 #include <unistd.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 
 ATF_TC(fsync_err);
 ATF_TC_HEAD(fsync_err, tc)
@@ -99,7 +103,8 @@ ATF_TC_BODY(fsync_sync, tc)
 
 		(void)snprintf(buf, sizeof(buf), "t_fsync-%d", i);
 
-		fd = mkstemp(buf);
+		/* Adjusted for OpenBSD, initially mkstemp(buf) */
+                fd = open(buf, O_CREAT|O_EXCL|O_RDWR, 0600);
 
 		ATF_REQUIRE(fd != -1);
 		ATF_REQUIRE(write(fd, "0", 1) == 1);

@@ -3,6 +3,7 @@ PROGS +=		t_bind
 PROGS +=		t_chroot
 PROGS +=		t_clock_gettime
 PROGS +=		t_dup
+PROGS +=		t_fsync
 
 .for p in ${PROGS}
 SRCS_$p = $p.c atf-c.c
