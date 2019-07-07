@@ -212,10 +212,12 @@ ATF_TC_BODY(dup3_err, tc)
 	ATF_REQUIRE(fd >= 0);
 
 	errno = 0;
-	ATF_REQUIRE(dup3(fd, fd, O_CLOEXEC) != -1);
+	/* Adjusted for OpenBSD, initially != -1 */
+	ATF_REQUIRE(dup3(fd, fd, O_CLOEXEC) == -1);
 
 	errno = 0;
-	ATF_REQUIRE_ERRNO(EBADF, dup3(-1, -1, O_CLOEXEC) == -1);
+	/* Adjusted for OpenBSD, initially EBADF */
+	ATF_REQUIRE_ERRNO(EINVAL, dup3(-1, -1, O_CLOEXEC) == -1);
 
 	errno = 0;
 	ATF_REQUIRE_ERRNO(EBADF, dup3(fd, -1, O_CLOEXEC) == -1);
@@ -300,7 +302,8 @@ ATF_TC_BODY(dup_max, tc)
 		 * reached. Ater that dup(2) family
 		 * should fail with EMFILE.
 		 */
-		(void)closefrom(0);
+		/* Adjusted for OpenBSD, initially 0 */
+		(void)closefrom(STDERR_FILENO + 1);
 		(void)memset(&res, 0, sizeof(struct rlimit));
 
 		n = 10;
@@ -313,12 +316,14 @@ ATF_TC_BODY(dup_max, tc)
 		if (buf == NULL)
 			_exit(EX_OSERR);
 
-		buf[0] = mkstemp(path);
+		/* Adjusted for OpenBSD, initially mkstemp(path) */
+		buf[0] = open(path, O_CREAT|O_EXCL|O_RDWR, S_IRUSR|S_IWUSR);
 
 		if (buf[0] < 0)
 			_exit(EX_OSERR);
 
-		for (i = 1; i < n; i++) {
+		/* Adjusted for OpenBSD, initially i < n */
+		for (i = 1; i < n - (STDERR_FILENO + 1); i++) {
 
 			buf[i] = open(path, O_RDONLY);
 
