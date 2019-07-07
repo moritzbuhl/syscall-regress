@@ -36,7 +36,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 
 #define REQUIRE_LIBC(x, v) \
 	ATF_REQUIRE_MSG((x) != (v), "%s: %s", #x, strerror(errno))
@@ -53,7 +53,7 @@ do {									\
 	ATF_REQUIRE_MSG(RZ_rv == 0, "%s: %s", #x, strerror(RZ_rv));	\
 } while (/*CONSTCOND*/0)
 
-__dead static __inline __printflike(1, 2) void
+__dead static __inline __attribute__((__format__(__printf__,1,2))) void
 atf_tc_fail_errno(const char *fmt, ...)
 {
 	va_list ap;

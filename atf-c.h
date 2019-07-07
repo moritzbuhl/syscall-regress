@@ -87,10 +87,16 @@ ATF_TC_FUNCTIONS(fn)
 			err(1, "snprintf atf_user");			\
 	}
 
+#define ATF_CHECK		ATF_REQUIRE
+#define ATF_CHECK_MSG		ATF_REQUIRE_MSG
+
 #define ATF_REQUIRE(exp)		if (!(exp)) err(1, __func__)
 #define ATF_REQUIRE_ERRNO(no, exp)	if (!(exp) || errno != no) 	\
 	err(1, ": " #exp " and errno != " #no)
+#define ATF_REQUIRE_MSG(exp, fmt, ...)	if (!(exp))			\
+	err(1, fmt, ##__VA_ARGS__)
 
 #define atf_tc_fail(fmt, ...)		err(1, fmt, ##__VA_ARGS__)
+#define atf_tc_fail_nonfatal(fmt, ...)  err(1, fmt, ##__VA_ARGS__)
 
 #endif /* !defined(ATF_C_H) */

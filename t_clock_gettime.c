@@ -55,6 +55,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __COPYRIGHT("@(#) Copyright (c) 2008\
  The NetBSD Foundation, inc. All rights reserved.");
@@ -64,7 +66,7 @@ __RCSID("$NetBSD: t_clock_gettime.c,v 1.3 2017/01/13 21:30:41 christos Exp $");
 #include <sys/sysctl.h>
 
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <limits.h>
 #include <stdio.h>
