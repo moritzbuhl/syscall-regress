@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_dup.c,v 1.9 2017/01/13 20:31:53 christos Exp $ */
 
 /*-
@@ -28,6 +29,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_dup.c,v 1.9 2017/01/13 20:31:53 christos Exp $");
 
@@ -35,7 +39,7 @@ __RCSID("$NetBSD: t_dup.c,v 1.9 2017/01/13 20:31:53 christos Exp $");
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
