@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_getpid.c,v 1.1 2011/07/07 06:57:53 jruoho Exp $ */
 
 /*-
@@ -28,6 +29,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_getpid.c,v 1.1 2011/07/07 06:57:53 jruoho Exp $");
 
@@ -37,7 +41,7 @@ __RCSID("$NetBSD: t_getpid.c,v 1.1 2011/07/07 06:57:53 jruoho Exp $");
 #include <pthread.h>
 #include <unistd.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 
 static int	 maxiter = 10;
 static void	*threadfunc(void *);

@@ -7,6 +7,9 @@ PROGS +=		t_fsync
 PROGS +=		t_getgroups
 PROGS +=		t_getitimer
 PROGS +=		t_getlogin
+PROGS +=		t_getpid
+
+LDADD_t_getpid = 	-lpthread
 
 .for p in ${PROGS}
 SRCS_$p = $p.c atf-c.c
