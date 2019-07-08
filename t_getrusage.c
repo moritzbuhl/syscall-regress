@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_getrusage.c,v 1.8 2018/05/09 08:45:03 mrg Exp $ */
 
 /*-
@@ -28,13 +29,16 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_getrusage.c,v 1.8 2018/05/09 08:45:03 mrg Exp $");
 
 #include <sys/resource.h>
 #include <sys/time.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <stdio.h>
 #include <errno.h>
 #include <limits.h>

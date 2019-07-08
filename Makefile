@@ -8,6 +8,7 @@ PROGS +=		t_getgroups
 PROGS +=		t_getitimer
 PROGS +=		t_getlogin
 PROGS +=		t_getpid
+PROGS +=		t_getrusage
 
 LDADD_t_getpid = 	-lpthread
 
