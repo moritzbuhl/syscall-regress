@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_getitimer.c,v 1.2 2012/03/22 18:20:46 christos Exp $ */
 
 /*-
@@ -28,12 +29,15 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_getitimer.c,v 1.2 2012/03/22 18:20:46 christos Exp $");
 
 #include <sys/time.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <limits.h>
 #include <signal.h>

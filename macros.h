@@ -2,9 +2,10 @@
 /* Public domain - Moritz Buhl */
 
 #include <sys/param.h>
-#include <sys/types.h>
 #include <sys/sysctl.h>
+#include <sys/types.h>
 
+#include <stdbool.h>
 #include <string.h>
 
 #define __RCSID(str)
