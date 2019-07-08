@@ -6,6 +6,7 @@ PROGS +=		t_dup
 PROGS +=		t_fsync
 PROGS +=		t_getgroups
 PROGS +=		t_getitimer
+PROGS +=		t_getlogin
 
 .for p in ${PROGS}
 SRCS_$p = $p.c atf-c.c
