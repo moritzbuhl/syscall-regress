@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_getgroups.c,v 1.1 2011/07/07 06:57:53 jruoho Exp $ */
 
 /*-
@@ -28,12 +29,15 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_getgroups.c,v 1.1 2011/07/07 06:57:53 jruoho Exp $");
 
 #include <sys/wait.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <limits.h>
 #include <stdlib.h>

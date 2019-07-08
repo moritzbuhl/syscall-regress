@@ -4,6 +4,7 @@ PROGS +=		t_chroot
 PROGS +=		t_clock_gettime
 PROGS +=		t_dup
 PROGS +=		t_fsync
+PROGS +=		t_getgroups
 
 .for p in ${PROGS}
 SRCS_$p = $p.c atf-c.c
