@@ -3,6 +3,7 @@
 
 #include <sys/param.h>
 #include <sys/socket.h>
+#include <sys/stdint.h>
 #include <sys/sysctl.h>
 #include <sys/types.h>
 

@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_mmap.c,v 1.13 2017/05/23 13:04:29 christos Exp $ */
 
 /*-
@@ -54,6 +55,9 @@
  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
  * SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_mmap.c,v 1.13 2017/05/23 13:04:29 christos Exp $");
 
@@ -65,7 +69,7 @@ __RCSID("$NetBSD: t_mmap.c,v 1.13 2017/05/23 13:04:29 christos Exp $");
 #include <sys/sysctl.h>
 #include <sys/wait.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>
@@ -571,7 +575,9 @@ ATF_TP_ADD_TCS(tp)
 	ATF_TP_ADD_TC(tp, mmap_prot_3);
 	ATF_TP_ADD_TC(tp, mmap_truncate);
 	ATF_TP_ADD_TC(tp, mmap_truncate_signal);
-	ATF_TP_ADD_TC(tp, mmap_va0);
+	/* Adjusted for OpenBSD, not available
+	 * ATF_TP_ADD_TC(tp, mmap_va0);
+	 */
 
 	return atf_no_error();
 }
