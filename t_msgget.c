@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_msgget.c,v 1.3 2017/10/08 08:31:05 kre Exp $ */
 
 /*-
@@ -28,6 +29,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_msgget.c,v 1.3 2017/10/08 08:31:05 kre Exp $");
 
@@ -36,7 +40,7 @@ __RCSID("$NetBSD: t_msgget.c,v 1.3 2017/10/08 08:31:05 kre Exp $");
 #include <sys/sysctl.h>
 #include <sys/wait.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <pwd.h>
 #include <stdio.h>
@@ -324,7 +328,9 @@ ATF_TP_ADD_TCS(tp)
 		ATF_TP_ADD_TC(tp, msgget_excl);
 		ATF_TP_ADD_TC(tp, msgget_exit);
 		ATF_TP_ADD_TC(tp, msgget_init);
-		ATF_TP_ADD_TC(tp, msgget_limit);
+		/* Adjusted for OpenBSD, not available
+		 * ATF_TP_ADD_TC(tp, msgget_limit);
+		 */
 		ATF_TP_ADD_TC(tp, msgget_mode);
 	}
 
