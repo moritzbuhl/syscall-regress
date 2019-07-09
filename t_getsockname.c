@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /*	$NetBSD: t_getsockname.c,v 1.1 2016/07/30 11:03:54 njoly Exp $	*/
 /*
  * Copyright (c) 2016 The NetBSD Foundation, Inc.
@@ -26,13 +27,15 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "macros.h"
+
 #include <sys/socket.h>
 #include <sys/un.h>
 
 #include <string.h>
 #include <unistd.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 
 ATF_TC(getsockname_unix);
 
