@@ -15,6 +15,7 @@ PROGS +=		t_getpid
 PROGS +=		t_getrusage
 PROGS +=		t_getsid
 PROGS +=		t_getsockname
+PROGS +=		t_gettimeofday
 
 LDADD_t_getpid = 	-lpthread
 
