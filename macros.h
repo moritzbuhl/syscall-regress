@@ -2,6 +2,7 @@
 /* Public domain - Moritz Buhl */
 
 #include <sys/param.h>
+#include <sys/socket.h>
 #include <sys/sysctl.h>
 #include <sys/types.h>
 

@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /*	$NetBSD: t_listen.c,v 1.5 2017/01/13 20:41:50 christos Exp $	*/
 /*
  * Copyright (c) 2007 The NetBSD Foundation, Inc.
@@ -26,8 +27,8 @@
  * IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <sys/socket.h>
-#include <atf-c.h>
+#include "macros.h"
+#include "atf-c.h"
 #include <err.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -132,5 +133,5 @@ ATF_TP_ADD_TCS(tp)
 	ATF_TP_ADD_TC(tp, listen_err);
 	ATF_TP_ADD_TC(tp, listen_low_port);
 
-	return 0;
+	return atf_no_error();
 }
