@@ -25,6 +25,7 @@ PROGS +=		t_mlock
 PROGS +=		t_mmap
 PROGS +=		t_msgctl
 PROGS +=		t_msgget
+PROGS +=		t_msgrcv
 
 LDADD_t_getpid = 	-lpthread
 
