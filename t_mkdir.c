@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_mkdir.c,v 1.2 2011/10/15 07:38:31 jruoho Exp $ */
 
 /*-
@@ -29,6 +30,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __COPYRIGHT("@(#) Copyright (c) 2008\
  The NetBSD Foundation, inc. All rights reserved.");
@@ -37,7 +40,7 @@ __RCSID("$NetBSD: t_mkdir.c,v 1.2 2011/10/15 07:38:31 jruoho Exp $");
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
