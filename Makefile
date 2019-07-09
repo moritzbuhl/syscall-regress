@@ -20,6 +20,7 @@ PROGS +=		t_kill
 PROGS +=		t_link
 PROGS +=		t_listen
 PROGS +=		t_mkdir
+PROGS +=		t_mkfifo
 
 LDADD_t_getpid = 	-lpthread
 

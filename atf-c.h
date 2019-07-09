@@ -87,5 +87,6 @@ ATF_TC_FUNCTIONS(fn)
 #define atf_tc_fail(fmt, ...)		err(1, fmt, ##__VA_ARGS__)
 #define atf_tc_fail_nonfatal(fmt, ...)	atf_tc_fail(fmt, ##__VA_ARGS__)
 #define atf_tc_expect_fail(fmt, ...)	atf_tc_fail(fmt, ##__VA_ARGS__)
+#define atf_tc_skip(fmt, ...)		atf_tc_fail(fmt, ##__VA_ARGS__)
 
 #endif /* !defined(ATF_C_H) */
