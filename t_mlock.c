@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_mlock.c,v 1.7 2019/03/13 08:50:12 kre Exp $ */
 
 /*-
@@ -28,6 +29,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_mlock.c,v 1.7 2019/03/13 08:50:12 kre Exp $");
 
@@ -37,7 +41,7 @@ __RCSID("$NetBSD: t_mlock.c,v 1.7 2019/03/13 08:50:12 kre Exp $");
 #include <sys/wait.h>
 
 #include <errno.h>
-#include <atf-c.h>
+#include "atf-c.h"
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -104,7 +108,8 @@ ATF_TC_BODY(mlock_err, tc)
 	ATF_REQUIRE_ERRNO(ENOMEM, mlock((char *)0, page) == -1);
 
 	errno = 0;
-	ATF_REQUIRE_ERRNO(ENOMEM, mlock((char *)-1, page) == -1);
+	/* Adjusted for OpenBSD, initially ENOMEM */
+	ATF_REQUIRE_ERRNO(EINVAL, mlock((char *)-1, page) == -1);
 
 	errno = 0;
 	ATF_REQUIRE_ERRNO(ENOMEM, munlock(NULL, page) == -1);
@@ -113,7 +118,8 @@ ATF_TC_BODY(mlock_err, tc)
 	ATF_REQUIRE_ERRNO(ENOMEM, munlock((char *)0, page) == -1);
 
 	errno = 0;
-	ATF_REQUIRE_ERRNO(ENOMEM, munlock((char *)-1, page) == -1);
+	/* Adjusted for OpenBSD, initially ENOMEM */
+	ATF_REQUIRE_ERRNO(EINVAL, munlock((char *)-1, page) == -1);
 
 	buf = malloc(page);
 	ATF_REQUIRE(buf != NULL);
@@ -123,8 +129,10 @@ ATF_TC_BODY(mlock_err, tc)
 	 * unlocking memory that is not locked is an error...
 	 */
 
-	errno = 0;
-	ATF_REQUIRE_ERRNO(ENOMEM, munlock(buf, page) == -1);
+	/* Adjusted for OpenBSD
+	 * errno = 0;
+	 * ATF_REQUIRE_ERRNO(ENOMEM, munlock(buf, page) == -1);
+	 */
 
 	/*
 	 * These are permitted to fail (EINVAL) but do not on NetBSD
@@ -220,7 +228,8 @@ ATF_TC_HEAD(mlock_mmap, tc)
 
 ATF_TC_BODY(mlock_mmap, tc)
 {
-	static const int flags = MAP_ANON | MAP_PRIVATE | MAP_WIRED;
+	/* Adjusted for OpenBSD, initially ... | MAP_WIRED */
+	static const int flags = MAP_ANON | MAP_PRIVATE;
 	void *buf;
 
 	/*
@@ -241,6 +250,8 @@ ATF_TC_BODY(mlock_mmap, tc)
 
 	ATF_REQUIRE(mlock(buf, page) == 0);
 	ATF_REQUIRE(munlock(buf, page) == 0);
+	ATF_REQUIRE(munmap(buf, page) == 0);
+	ATF_REQUIRE(munmap(buf, page) == 0);
 	ATF_REQUIRE(munmap(buf, page) == 0);
 	ATF_REQUIRE(munlock(buf, page) != 0);
 
@@ -275,26 +286,26 @@ ATF_TC_BODY(mlock_nested, tc)
 {
 	const size_t maxiter = 100;
 	void *buf;
-	int err;
+	int err1;
 
 	buf = malloc(page);
 	ATF_REQUIRE(buf != NULL);
 	fprintf(stderr, "mlock_nested: buf = %p (page=%ld)\n", buf, page);
 
 	for (size_t i = 0; i < maxiter; i++) {
-		err = mlock(buf, page);
-		if (err != 0)
+		err1 = mlock(buf, page);
+		if (err1 != 0)
 		    fprintf(stderr,
 		    "mlock_nested: i=%zu (of %zu) mlock(%p, %ld): %d [%d] %s\n",
-			i, maxiter, buf, page, err, errno, strerror(errno));
-		ATF_REQUIRE(err == 0);
+			i, maxiter, buf, page, err1, errno, strerror(errno));
+		ATF_REQUIRE(err1 == 0);
 	}
 
-	err = munlock(buf, page);
-	if (err != 0)
+	err1 = munlock(buf, page);
+	if (err1 != 0)
 		fprintf(stderr, "mlock_nested: munlock(%p, %ld): %d [%d] %s\n",
-		    buf, page, err, errno, strerror(errno));
-	ATF_REQUIRE(err == 0);
+		    buf, page, err1, errno, strerror(errno));
+	ATF_REQUIRE(err1 == 0);
 	free(buf);
 }
 

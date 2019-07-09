@@ -35,3 +35,6 @@ sysctlbyname(char* s, void *oldp, size_t *oldlenp, void *newp, size_t newlen)
 	mib[2] = ktc;
         return sysctl(mib, 3, oldp, oldlenp, newp, newlen);
 }
+
+/* t_mlock.c */
+#define MAP_WIRED	__MAP_NOREPLACE

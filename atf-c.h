@@ -79,8 +79,8 @@ ATF_TC_FUNCTIONS(fn)
 #define ATF_CHECK_MSG		ATF_REQUIRE_MSG
 
 #define ATF_REQUIRE(exp)		if (!(exp)) err(1, __func__)
-#define ATF_REQUIRE_ERRNO(no, exp)	if (!(exp) || errno != no) 	\
-	err(1, ": " #exp " and errno != " #no)
+#define ATF_REQUIRE_ERRNO(no, exp)	if (!(exp)) err(1, "!("#exp")");\
+	else if (errno != no) err(1, "(errno !=" #no)
 #define ATF_REQUIRE_MSG(exp, fmt, ...)	if (!(exp))			\
 	err(1, fmt, ##__VA_ARGS__)
 
