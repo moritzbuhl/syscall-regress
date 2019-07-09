@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_msync.c,v 1.3 2017/01/14 20:52:42 christos Exp $ */
 
 /*-
@@ -28,12 +29,15 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_msync.c,v 1.3 2017/01/14 20:52:42 christos Exp $");
 
 #include <sys/mman.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
