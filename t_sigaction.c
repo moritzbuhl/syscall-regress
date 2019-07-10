@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_sigaction.c,v 1.5 2017/01/13 21:30:41 christos Exp $ */
 
 /*-
@@ -26,6 +27,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __COPYRIGHT("@(#) Copyright (c) 2010\
  The NetBSD Foundation, inc. All rights reserved.");
@@ -39,7 +42,7 @@ __RCSID("$NetBSD: t_sigaction.c,v 1.5 2017/01/13 21:30:41 christos Exp $");
 #include <string.h>
 #include <unistd.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 
 #include "h_macros.h"
 
