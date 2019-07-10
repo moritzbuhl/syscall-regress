@@ -26,6 +26,7 @@
 
 
 int atf_test(int, int);
+void atf_require(int, int, const char *, const char *, const int, char *, ...);
 
 #define ATF_INSPECT_TEST	1
 #define ATF_RUN_TEST		2
@@ -77,20 +78,24 @@ ATF_TC_FUNCTIONS(fn)
 
 #define ATF_CHECK		ATF_REQUIRE
 #define ATF_CHECK_MSG		ATF_REQUIRE_MSG
+#define ATF_CHECK_EQ		ATF_REQUIRE_EQ
 
-#define ATF_REQUIRE(exp)		if (!(exp)) err(1, __func__)
-#define ATF_REQUIRE_ERRNO(no, exp)	if (!(exp)) err(1, "!("#exp")");\
-	else if (errno != no) err(1, "(errno != " #no)
-#define ATF_REQUIRE_MSG(exp, fmt, ...)	if (!(exp))			\
-	err(1, fmt, ##__VA_ARGS__)
-#define ATF_REQUIRE_EQ(a, b)		if ((a) != (b)) err(1, __func__)
-#define ATF_REQUIRE_EQ_MSG(a, b, fmt, ...)	if ((a) != (b))		\
-	err(1, fmt, ##__VA_ARGS__)
+#define atf_req(exp, err, msg, ...)					\
+	atf_require(exp, err, #exp, __FILE__, __LINE__, NULL)
+#define ATF_REQUIRE(exp)		atf_req(exp, -1, NULL)
+#define ATF_REQUIRE_ERRNO(no, exp)	atf_req(exp, no, NULL)
+#define ATF_REQUIRE_MSG(exp, fmt, ...)	atf_req(exp, -1, fmt, ##__VA_ARGS__)
+#define ATF_REQUIRE_EQ(a, b)		atf_req((a) == (b), -1, NULL)
+#define ATF_REQUIRE_EQ_MSG(a, b, fmt, ...)				\
+	atf_req((a) == (b), -1, fmt, ##__VA_ARGS__)
 
-#define atf_tc_fail(fmt, ...)		err(1, fmt, ##__VA_ARGS__)
-#define atf_tc_fail_nonfatal(fmt, ...)	atf_tc_fail(fmt, ##__VA_ARGS__)
-#define atf_tc_expect_fail(fmt, ...)	atf_tc_fail(fmt, ##__VA_ARGS__)
-#define atf_tc_skip(fmt, ...)		atf_tc_fail(fmt, ##__VA_ARGS__)
+#define atf_tc_fail(fmt, ...)		errx(1, fmt, ##__VA_ARGS__)
+#define atf_tc_fail_nonfatal(fmt, ...)	errx(1, fmt, ##__VA_ARGS__)
+#define atf_tc_expect_fail(fmt, ...)	\
+	errx(1, fmt "\nEXPECTED_FAIL", ##__VA_ARGS__)
+#define atf_tc_skip(fmt, ...)		\
+	errx(1, fmt "\nSKIPPING", ##__VA_ARGS__)
+#define atf_tc_pass()			exit(0)
 
 #define atf_utils_fork()	fork()
 

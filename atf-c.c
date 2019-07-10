@@ -3,7 +3,9 @@
 #include <sys/wait.h>
 
 #include <err.h>
+#include <errno.h>
 #include <limits.h>
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <pwd.h>
@@ -76,4 +78,28 @@ usage(void)
 {
 	fprintf(stderr, "usage: %s [-n] [-c|i|r test#]\n", getprogname());
 	exit(1);
+}
+
+void
+atf_require(int exp, int expected_errno, const char *expstr, const char *src,
+    const int lineno, char *fmt, ...)
+{
+	va_list args;
+	if (!(exp)) {
+		fprintf(stderr, "\n%s:%d: ", src, lineno);
+		if (fmt != NULL) {
+			va_start(args, fmt);
+			vfprintf(stderr, fmt, args);
+			va_end(args);
+		} else {
+			fprintf(stderr, "'%s' evaluated to false\n", expstr);
+		}
+		exit(1);
+	} else if (expected_errno >= 0 && errno != expected_errno) {
+		fprintf(stderr, "\n%s:%d: ", src, lineno);
+		fprintf(stderr, "expected errno %d but got %d instead\n",
+		    expected_errno, errno);
+		exit(1);
+	}
+	return;
 }
