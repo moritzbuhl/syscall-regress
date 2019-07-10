@@ -32,6 +32,7 @@ PROGS +=		t_pipe
 PROGS +=		t_pipe2
 PROGS +=		t_poll
 PROGS +=		t_ptrace
+PROGS +=		t_revoke
 
 LDADD_t_getpid = 	-lpthread
 
