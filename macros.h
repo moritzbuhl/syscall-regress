@@ -15,6 +15,7 @@
 
 #define __arraycount(_a)	nitems(_a)
 #define __unreachable()		err(1, "unreachable")
+#define __UNCONST(a)		(a)
 
 /* t_chroot.c */
 #define fchroot(fd) 0

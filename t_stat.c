@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_stat.c,v 1.5 2017/01/13 20:06:50 christos Exp $ */
 
 /*-
@@ -28,6 +29,9 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_stat.c,v 1.5 2017/01/13 20:06:50 christos Exp $");
 
@@ -38,7 +42,7 @@ __RCSID("$NetBSD: t_stat.c,v 1.5 2017/01/13 20:06:50 christos Exp $");
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <fts.h>

@@ -38,6 +38,7 @@ PROGS +=		t_sendrecv
 PROGS +=		t_setuid
 PROGS +=		t_sigaction
 PROGS +=		t_socketpair
+PROGS +=		t_stat
 
 LDADD_t_getpid = 	-lpthread
 
