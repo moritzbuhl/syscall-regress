@@ -28,6 +28,7 @@ PROGS +=		t_msgget
 PROGS +=		t_msgrcv
 PROGS +=		t_msgsnd
 PROGS +=		t_msync
+PROGS +=		t_pipe
 
 LDADD_t_getpid = 	-lpthread
 

@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_pipe.c,v 1.5 2017/01/13 21:30:41 christos Exp $ */
 
 /*-
@@ -26,6 +27,9 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "macros.h"
+
+#include <sys/cdefs.h>
 #include <sys/cdefs.h>
 __COPYRIGHT("@(#) Copyright (c) 2008\
  The NetBSD Foundation, inc. All rights reserved.");
@@ -43,7 +47,7 @@ __RCSID("$NetBSD: t_pipe.c,v 1.5 2017/01/13 21:30:41 christos Exp $");
 #include <stdlib.h>
 #include <unistd.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 
 #include "h_macros.h"
 
