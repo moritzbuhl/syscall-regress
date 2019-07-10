@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_pipe2.c,v 1.9 2017/01/13 21:19:45 christos Exp $ */
 
 /*-
@@ -35,10 +36,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_pipe2.c,v 1.9 2017/01/13 21:19:45 christos Exp $");
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
@@ -77,13 +81,15 @@ run(int flags)
 		ATF_REQUIRE((fcntl(fd[1], F_GETFL) & O_NONBLOCK) == 0);
 	}
 
-	if (flags & O_NOSIGPIPE) {
-		ATF_REQUIRE(fcntl(fd[0], F_GETNOSIGPIPE) != 0);
-		ATF_REQUIRE(fcntl(fd[1], F_GETNOSIGPIPE) != 0);
-	} else {
-		ATF_REQUIRE(fcntl(fd[0], F_GETNOSIGPIPE) == 0);
-		ATF_REQUIRE(fcntl(fd[1], F_GETNOSIGPIPE) == 0);
-	}
+	/* Adjusted for OpenBSD, not available
+	 * if (flags & O_NOSIGPIPE) {
+	 *	ATF_REQUIRE(fcntl(fd[0], F_GETNOSIGPIPE) != 0);
+	 *	ATF_REQUIRE(fcntl(fd[1], F_GETNOSIGPIPE) != 0);
+	 *} else {
+	 *	ATF_REQUIRE(fcntl(fd[0], F_GETNOSIGPIPE) == 0);
+	 *	ATF_REQUIRE(fcntl(fd[1], F_GETNOSIGPIPE) == 0);
+	 *}
+	 */
 
 	ATF_REQUIRE(close(fd[0]) != -1);
 	ATF_REQUIRE(close(fd[1]) != -1);
@@ -110,14 +116,14 @@ ATF_TC_HEAD(pipe2_consume, tc)
 ATF_TC_BODY(pipe2_consume, tc)
 {
 	struct rlimit rl;
-	int err, filedes[2];
+	int err1, filedes[2];
 	int old;
 
 	ATF_REQUIRE_MSG(closefrom(4) != -1, "closefrom failed: %s",
 	    strerror(errno));
 
-	err = getrlimit(RLIMIT_NOFILE, &rl);
-	ATF_REQUIRE(err == 0);
+	err1 = getrlimit(RLIMIT_NOFILE, &rl);
+	ATF_REQUIRE(err1 == 0);
 	/*
 	 * The heart of this test is to run against the number of open
 	 * file descriptor limit in the middle of a pipe2() call - i.e.
@@ -125,13 +131,13 @@ ATF_TC_BODY(pipe2_consume, tc)
 	 */
 	old = rl.rlim_cur;
 	rl.rlim_cur = 4;
-	err = setrlimit(RLIMIT_NOFILE, &rl);
-	ATF_REQUIRE(err == 0);
+	err1 = setrlimit(RLIMIT_NOFILE, &rl);
+	ATF_REQUIRE(err1 == 0);
 
-	err = pipe2(filedes, O_CLOEXEC);
-	ATF_REQUIRE(err == -1);
+	err1 = pipe2(filedes, O_CLOEXEC);
+	ATF_REQUIRE(err1 == -1);
 	rl.rlim_cur = old;
-	err = setrlimit(RLIMIT_NOFILE, &rl);
+	err1 = setrlimit(RLIMIT_NOFILE, &rl);
 }
 
 ATF_TC(pipe2_nonblock);
@@ -186,7 +192,9 @@ ATF_TP_ADD_TCS(tp)
 	ATF_TP_ADD_TC(tp, pipe2_consume);
 	ATF_TP_ADD_TC(tp, pipe2_nonblock);
 	ATF_TP_ADD_TC(tp, pipe2_cloexec);
-	ATF_TP_ADD_TC(tp, pipe2_nosigpipe);
+	/* Adjusted for OpenBSD, not available
+	 * ATF_TP_ADD_TC(tp, pipe2_nosigpipe);
+	 */
 	ATF_TP_ADD_TC(tp, pipe2_einval);
 
 	return atf_no_error();

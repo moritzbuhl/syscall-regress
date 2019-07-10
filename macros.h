@@ -39,3 +39,6 @@ sysctlbyname(char* s, void *oldp, size_t *oldlenp, void *newp, size_t newlen)
 
 /* t_mlock.c */
 #define MAP_WIRED	__MAP_NOREPLACE
+
+/* t_pipe2.c */
+#define O_NOSIGPIPE	0
