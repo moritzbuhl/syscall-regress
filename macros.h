@@ -50,3 +50,6 @@ sysctlbyname(char* s, void *oldp, size_t *oldlenp, void *newp, size_t newlen)
 
 /* t_sendrecv.c */
 #define SO_RERROR	SO_DEBUG
+
+/* t_write.c */
+#define _PATH_DEVZERO	"/dev/zero"

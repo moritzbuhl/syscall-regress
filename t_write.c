@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_write.c,v 1.6 2017/07/09 22:18:43 christos Exp $ */
 
 /*-
@@ -26,6 +27,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __COPYRIGHT("@(#) Copyright (c) 2008\
  The NetBSD Foundation, inc. All rights reserved.");
@@ -34,7 +37,7 @@ __RCSID("$NetBSD: t_write.c,v 1.6 2017/07/09 22:18:43 christos Exp $");
 #include <sys/uio.h>
 #include <sys/mman.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <signal.h>

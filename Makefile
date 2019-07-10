@@ -43,6 +43,7 @@ PROGS +=		t_syscall
 PROGS +=		t_truncate
 PROGS +=		t_umask
 PROGS +=		t_unlink
+PROGS +=		t_write
 
 LDADD_t_getpid = 	-lpthread
 
