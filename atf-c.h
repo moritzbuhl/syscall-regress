@@ -67,7 +67,7 @@ ATF_TC_FUNCTIONS(fn)
 
 #define atf_tc_set_md_var(tc, attr, fmt, ...)				\
 	if (strcmp(attr, "descr") == 0) {				\
-		printf("DESCR='" fmt "'\n", ##__VA_ARGS__);		\
+		printf("DESCR=\"" fmt "\"\n", ##__VA_ARGS__);		\
 	} else if (strcmp(attr, "require.user") == 0) {			\
 		if (strcmp(fmt, "unprivileged") == 0)			\
 			printf("REQ_USER=nobody\n");			\
@@ -87,10 +87,11 @@ ATF_TC_FUNCTIONS(fn)
 #define ATF_REQUIRE_EQ_MSG(a, b, fmt, ...)	if ((a) != (b))		\
 	err(1, fmt, ##__VA_ARGS__)
 
-
 #define atf_tc_fail(fmt, ...)		err(1, fmt, ##__VA_ARGS__)
 #define atf_tc_fail_nonfatal(fmt, ...)	atf_tc_fail(fmt, ##__VA_ARGS__)
 #define atf_tc_expect_fail(fmt, ...)	atf_tc_fail(fmt, ##__VA_ARGS__)
 #define atf_tc_skip(fmt, ...)		atf_tc_fail(fmt, ##__VA_ARGS__)
+
+#define atf_utils_fork()	fork()
 
 #endif /* !defined(ATF_C_H) */
