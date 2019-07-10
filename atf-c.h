@@ -97,6 +97,8 @@ ATF_TC_FUNCTIONS(fn)
 	errx(1, fmt "\nSKIPPING", ##__VA_ARGS__)
 #define atf_tc_pass()			exit(0)
 
+#define atf_tc_get_config_var(a, b)	"."
+
 #define atf_utils_fork()	fork()
 
 #endif /* !defined(ATF_C_H) */
