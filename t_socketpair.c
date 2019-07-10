@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_socketpair.c,v 1.2 2017/01/13 20:04:52 christos Exp $ */
 
 /*-
@@ -35,10 +36,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_socketpair.c,v 1.2 2017/01/13 20:04:52 christos Exp $");
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdlib.h>
