@@ -30,6 +30,7 @@ PROGS +=		t_msgsnd
 PROGS +=		t_msync
 PROGS +=		t_pipe
 PROGS +=		t_pipe2
+PROGS +=		t_poll
 
 LDADD_t_getpid = 	-lpthread
 

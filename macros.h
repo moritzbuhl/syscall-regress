@@ -42,3 +42,6 @@ sysctlbyname(char* s, void *oldp, size_t *oldlenp, void *newp, size_t newlen)
 
 /* t_pipe2.c */
 #define O_NOSIGPIPE	0
+
+/* t_poll.c */
+#define pollts(a, b, c, e)	0

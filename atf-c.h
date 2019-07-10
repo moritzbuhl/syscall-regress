@@ -84,6 +84,9 @@ ATF_TC_FUNCTIONS(fn)
 #define ATF_REQUIRE_MSG(exp, fmt, ...)	if (!(exp))			\
 	err(1, fmt, ##__VA_ARGS__)
 #define ATF_REQUIRE_EQ(a, b)		if ((a) != (b)) err(1, __func__)
+#define ATF_REQUIRE_EQ_MSG(a, b, fmt, ...)	if ((a) != (b))		\
+	err(1, fmt, ##__VA_ARGS__)
+
 
 #define atf_tc_fail(fmt, ...)		err(1, fmt, ##__VA_ARGS__)
 #define atf_tc_fail_nonfatal(fmt, ...)	atf_tc_fail(fmt, ##__VA_ARGS__)

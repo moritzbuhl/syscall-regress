@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /*	$NetBSD: t_poll.c,v 1.3 2012/03/18 07:00:52 jruoho Exp $	*/
 
 /*-
@@ -29,10 +30,12 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "macros.h"
+
 #include <sys/time.h>
 #include <sys/wait.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <paths.h>
@@ -384,9 +387,11 @@ ATF_TP_ADD_TCS(tp)
 	ATF_TP_ADD_TC(tp, poll_3way);
 	ATF_TP_ADD_TC(tp, poll_basic);
 	ATF_TP_ADD_TC(tp, poll_err);
-	ATF_TP_ADD_TC(tp, pollts_basic);
-	ATF_TP_ADD_TC(tp, pollts_err);
-	ATF_TP_ADD_TC(tp, pollts_sigmask);
+	/* Adjusted for OpenBSD, not supported
+	 * ATF_TP_ADD_TC(tp, pollts_basic);
+	 * ATF_TP_ADD_TC(tp, pollts_err);
+	 * ATF_TP_ADD_TC(tp, pollts_sigmask);
+	 */
 
 	return atf_no_error();
 }
