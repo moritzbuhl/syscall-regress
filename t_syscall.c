@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /*	$NetBSD: t_syscall.c,v 1.3 2018/05/28 07:55:56 martin Exp $	*/
 
 /*-
@@ -28,11 +29,14 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_syscall.c,v 1.3 2018/05/28 07:55:56 martin Exp $");
 
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
