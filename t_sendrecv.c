@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /*	$NetBSD: t_sendrecv.c,v 1.6 2019/02/03 03:19:28 mrg Exp $	*/
 
 /*-
@@ -28,10 +29,13 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_sendrecv.c,v 1.6 2019/02/03 03:19:28 mrg Exp $");
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <sys/types.h>
 #include <sys/socket.h>
 

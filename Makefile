@@ -34,6 +34,7 @@ PROGS +=		t_poll
 PROGS +=		t_ptrace
 PROGS +=		t_revoke
 PROGS +=		t_select
+PROGS +=		t_sendrecv
 
 LDADD_t_getpid = 	-lpthread
 

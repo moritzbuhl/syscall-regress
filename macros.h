@@ -14,6 +14,7 @@
 #define __COPYRIGHT(str)
 
 #define __arraycount(_a)	nitems(_a)
+#define __unreachable()		err(1, "unreachable")
 
 /* t_chroot.c */
 #define fchroot(fd) 0
@@ -45,3 +46,6 @@ sysctlbyname(char* s, void *oldp, size_t *oldlenp, void *newp, size_t newlen)
 
 /* t_poll.c */
 #define pollts(a, b, c, e)	0
+
+/* t_sendrecv.c */
+#define SO_RERROR	SO_DEBUG
