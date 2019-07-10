@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /*	$NetBSD: t_select.c,v 1.4 2017/01/13 21:18:33 christos Exp $ */
 
 /*-
@@ -29,6 +30,8 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include "macros.h"
+
 #include <assert.h>
 #include <sys/types.h>
 #include <sys/select.h>
@@ -42,7 +45,7 @@
 #include <errno.h>
 #include <fcntl.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 
 static sig_atomic_t keep_going = 1;
 
@@ -73,11 +76,10 @@ prmask(const sigset_t *m, char *buf, size_t len)
 	buf[0] = '0';
 	buf[1] = 'x';
 #define N(p, a)	(((p) >> ((a) * 4)) & 0xf)
-	for (size_t i = __arraycount(m->__bits); i > 0; i--) {
-		uint32_t p = m->__bits[i - 1];
-		for (size_t k = sizeof(p); k > 0; k--)
-			buf[j++] = xtoa(N(p, k - 1));
-	}
+	/* Adjusted for OpenBSD, on NetBSD sigset_t is a struct */
+	uint32_t p = (*m);
+	for (size_t k = sizeof(p); k > 0; k--)
+		buf[j++] = xtoa(N(p, k - 1));
 	buf[j] = '\0';
 	return buf;
 }
