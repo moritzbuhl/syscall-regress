@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_umask.c,v 1.2 2017/01/13 19:34:19 christos Exp $ */
 
 /*-
@@ -28,13 +29,16 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_umask.c,v 1.2 2017/01/13 19:34:19 christos Exp $");
 
 #include <sys/stat.h>
 #include <sys/wait.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <fcntl.h>
 #include <stdlib.h>
 #include <string.h>
