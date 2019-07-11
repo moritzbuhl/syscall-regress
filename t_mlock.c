@@ -251,8 +251,6 @@ ATF_TC_BODY(mlock_mmap, tc)
 	ATF_REQUIRE(mlock(buf, page) == 0);
 	ATF_REQUIRE(munlock(buf, page) == 0);
 	ATF_REQUIRE(munmap(buf, page) == 0);
-	ATF_REQUIRE(munmap(buf, page) == 0);
-	ATF_REQUIRE(munmap(buf, page) == 0);
 	ATF_REQUIRE(munlock(buf, page) != 0);
 
 	fprintf(stderr, "mlock_mmap: first test succeeded\n");
@@ -286,26 +284,26 @@ ATF_TC_BODY(mlock_nested, tc)
 {
 	const size_t maxiter = 100;
 	void *buf;
-	int err1;
+	int err;
 
 	buf = malloc(page);
 	ATF_REQUIRE(buf != NULL);
 	fprintf(stderr, "mlock_nested: buf = %p (page=%ld)\n", buf, page);
 
 	for (size_t i = 0; i < maxiter; i++) {
-		err1 = mlock(buf, page);
-		if (err1 != 0)
+		err = mlock(buf, page);
+		if (err != 0)
 		    fprintf(stderr,
 		    "mlock_nested: i=%zu (of %zu) mlock(%p, %ld): %d [%d] %s\n",
-			i, maxiter, buf, page, err1, errno, strerror(errno));
-		ATF_REQUIRE(err1 == 0);
+			i, maxiter, buf, page, err, errno, strerror(errno));
+		ATF_REQUIRE(err == 0);
 	}
 
-	err1 = munlock(buf, page);
-	if (err1 != 0)
+	err = munlock(buf, page);
+	if (err != 0)
 		fprintf(stderr, "mlock_nested: munlock(%p, %ld): %d [%d] %s\n",
-		    buf, page, err1, errno, strerror(errno));
-	ATF_REQUIRE(err1 == 0);
+		    buf, page, err, errno, strerror(errno));
+	ATF_REQUIRE(err == 0);
 	free(buf);
 }
 
