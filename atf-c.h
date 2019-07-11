@@ -35,11 +35,11 @@ void atf_require(int, int, const char *, const char *, const int, char *, ...);
 #define ATF_TC_FUNCTIONS(fn)						\
 void atf_head_##fn(void);						\
 void atf_body_##fn(void);						\
-void atf_cleanup_##fn(void);						\
+void atf_cleanup_##fn(void);
 
 #define ATF_TC(fn)							\
 ATF_TC_FUNCTIONS(fn)							\
-void atf_cleanup_##fn(void) { return; }	
+void atf_cleanup_##fn(void) { return; }
 
 #define ATF_TC_WITH_CLEANUP(fn)						\
 ATF_TC_FUNCTIONS(fn)
