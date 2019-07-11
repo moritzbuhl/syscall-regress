@@ -1,5 +1,5 @@
 /*	$OpenBSD$	*/
-/*	$NetBSD: t_listen.c,v 1.5 2017/01/13 20:41:50 christos Exp $	*/
+/*	$NetBSD: t_listen.c,v 1.6 2019/07/09 16:24:01 maya Exp $	*/
 /*
  * Copyright (c) 2007 The NetBSD Foundation, Inc.
  * All rights reserved.
@@ -28,6 +28,8 @@
  */
 
 #include "macros.h"
+
+#include <sys/socket.h>
 #include "atf-c.h"
 #include <err.h>
 #include <errno.h>
