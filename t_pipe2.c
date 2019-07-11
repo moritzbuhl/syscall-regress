@@ -116,14 +116,14 @@ ATF_TC_HEAD(pipe2_consume, tc)
 ATF_TC_BODY(pipe2_consume, tc)
 {
 	struct rlimit rl;
-	int err1, filedes[2];
+	int err, filedes[2];
 	int old;
 
 	ATF_REQUIRE_MSG(closefrom(4) != -1, "closefrom failed: %s",
 	    strerror(errno));
 
-	err1 = getrlimit(RLIMIT_NOFILE, &rl);
-	ATF_REQUIRE(err1 == 0);
+	err = getrlimit(RLIMIT_NOFILE, &rl);
+	ATF_REQUIRE(err == 0);
 	/*
 	 * The heart of this test is to run against the number of open
 	 * file descriptor limit in the middle of a pipe2() call - i.e.
@@ -131,13 +131,13 @@ ATF_TC_BODY(pipe2_consume, tc)
 	 */
 	old = rl.rlim_cur;
 	rl.rlim_cur = 4;
-	err1 = setrlimit(RLIMIT_NOFILE, &rl);
-	ATF_REQUIRE(err1 == 0);
+	err = setrlimit(RLIMIT_NOFILE, &rl);
+	ATF_REQUIRE(err == 0);
 
-	err1 = pipe2(filedes, O_CLOEXEC);
-	ATF_REQUIRE(err1 == -1);
+	err = pipe2(filedes, O_CLOEXEC);
+	ATF_REQUIRE(err == -1);
 	rl.rlim_cur = old;
-	err1 = setrlimit(RLIMIT_NOFILE, &rl);
+	err = setrlimit(RLIMIT_NOFILE, &rl);
 }
 
 ATF_TC(pipe2_nonblock);
