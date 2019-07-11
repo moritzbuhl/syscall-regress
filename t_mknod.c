@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_mknod.c,v 1.2 2012/03/18 07:00:52 jruoho Exp $ */
 
 /*-
@@ -28,12 +29,15 @@
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  */
+
+#include "macros.h"
+
 #include <sys/cdefs.h>
 __RCSID("$NetBSD: t_mknod.c,v 1.2 2012/03/18 07:00:52 jruoho Exp $");
 
 #include <sys/stat.h>
 
-#include <atf-c.h>
+#include "atf-c.h"
 #include <errno.h>
 #include <fcntl.h>
 #include <limits.h>
