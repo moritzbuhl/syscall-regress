@@ -18,7 +18,6 @@
 #if !defined(ATF_C_H)
 #define ATF_C_H
 
-#include <err.h>
 #include <pwd.h>
 #include <stdio.h>
 #include <string.h>
@@ -27,6 +26,8 @@
 
 int atf_test(int, int);
 void atf_require(int, int, const char *, const char *, const int, char *, ...);
+void atf_tc_fail(char *, ...)
+    __attribute__((__noreturn__, __format__ (printf, 1, 2)));
 
 #define ATF_INSPECT_TEST	1
 #define ATF_RUN_TEST		2
@@ -89,12 +90,11 @@ ATF_TC_FUNCTIONS(fn)
 #define ATF_REQUIRE_EQ_MSG(a, b, fmt, ...)				\
 	atf_req((a) == (b), -1, fmt, ##__VA_ARGS__)
 
-#define atf_tc_fail(fmt, ...)		errx(1, fmt, ##__VA_ARGS__)
-#define atf_tc_fail_nonfatal(fmt, ...)	errx(1, fmt, ##__VA_ARGS__)
+#define atf_tc_fail_nonfatal(fmt, ...)	atf_tc_fail(fmt, ##__VA_ARGS__)
 #define atf_tc_expect_fail(fmt, ...)	\
-	errx(1, fmt "\nEXPECTED_FAIL", ##__VA_ARGS__)
+	atf_tc_fail(fmt "\nEXPECTED_FAIL", ##__VA_ARGS__)
 #define atf_tc_skip(fmt, ...)		\
-	errx(1, fmt "\nSKIPPING", ##__VA_ARGS__)
+	atf_tc_fail(fmt "\nSKIPPING", ##__VA_ARGS__)
 #define atf_tc_pass()			exit(0)
 
 #define atf_tc_get_config_var(a, b)	"."

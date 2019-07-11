@@ -14,7 +14,7 @@
 #define __COPYRIGHT(str)
 
 #define __arraycount(_a)	nitems(_a)
-#define __unreachable()		err(1, "unreachable")
+#define __unreachable()		atf_tc_fail("unreachable")
 #define __UNCONST(a)		(a)
 
 /* t_chroot.c */

@@ -103,3 +103,11 @@ atf_require(int exp, int expected_errno, const char *expstr, const char *src,
 	}
 	return;
 }
+
+void
+atf_tc_fail(char *fmt, ...)
+{
+	va_list args;
+	va_start(args, fmt);
+	verrx(1, fmt, args);
+}
