@@ -575,7 +575,8 @@ ATF_TP_ADD_TCS(tp)
 	ATF_TP_ADD_TC(tp, mmap_prot_3);
 	ATF_TP_ADD_TC(tp, mmap_truncate);
 	ATF_TP_ADD_TC(tp, mmap_truncate_signal);
-	/* Adjusted for OpenBSD, not available
+	/*
+	 * Adjusted for OpenBSD, not available
 	 * ATF_TP_ADD_TC(tp, mmap_va0);
 	 */
 

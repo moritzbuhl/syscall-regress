@@ -184,11 +184,13 @@ ATF_TC_CLEANUP(revoke_perm, tc)
 ATF_TP_ADD_TCS(tp)
 {
 
-	/* Adjusted for OpenBSD, revoke only on ttys supported
+	/*
+	 * Adjusted for OpenBSD, revoke only on ttys supported
 	 * ATF_TP_ADD_TC(tp, revoke_basic);
 	 */
 	ATF_TP_ADD_TC(tp, revoke_err);
-	/* Adjusted for OpenBSD, revoke only on ttys supported
+	/*
+	 * Adjusted for OpenBSD, revoke only on ttys supported
 	 * ATF_TP_ADD_TC(tp, revoke_perm);
 	 */
 

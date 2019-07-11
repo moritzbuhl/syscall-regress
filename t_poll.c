@@ -387,7 +387,8 @@ ATF_TP_ADD_TCS(tp)
 	ATF_TP_ADD_TC(tp, poll_3way);
 	ATF_TP_ADD_TC(tp, poll_basic);
 	ATF_TP_ADD_TC(tp, poll_err);
-	/* Adjusted for OpenBSD, not supported
+	/*
+	 * Adjusted for OpenBSD, not supported
 	 * ATF_TP_ADD_TC(tp, pollts_basic);
 	 * ATF_TP_ADD_TC(tp, pollts_err);
 	 * ATF_TP_ADD_TC(tp, pollts_sigmask);

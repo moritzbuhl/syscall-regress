@@ -328,7 +328,8 @@ ATF_TP_ADD_TCS(tp)
 		ATF_TP_ADD_TC(tp, msgget_excl);
 		ATF_TP_ADD_TC(tp, msgget_exit);
 		ATF_TP_ADD_TC(tp, msgget_init);
-		/* Adjusted for OpenBSD, not available
+		/*
+		 * Adjusted for OpenBSD, not available
 		 * ATF_TP_ADD_TC(tp, msgget_limit);
 		 */
 		ATF_TP_ADD_TC(tp, msgget_mode);

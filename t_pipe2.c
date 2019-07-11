@@ -81,7 +81,8 @@ run(int flags)
 		ATF_REQUIRE((fcntl(fd[1], F_GETFL) & O_NONBLOCK) == 0);
 	}
 
-	/* Adjusted for OpenBSD, not available
+	/*
+	 * Adjusted for OpenBSD, not available
 	 * if (flags & O_NOSIGPIPE) {
 	 *	ATF_REQUIRE(fcntl(fd[0], F_GETNOSIGPIPE) != 0);
 	 *	ATF_REQUIRE(fcntl(fd[1], F_GETNOSIGPIPE) != 0);
@@ -192,7 +193,8 @@ ATF_TP_ADD_TCS(tp)
 	ATF_TP_ADD_TC(tp, pipe2_consume);
 	ATF_TP_ADD_TC(tp, pipe2_nonblock);
 	ATF_TP_ADD_TC(tp, pipe2_cloexec);
-	/* Adjusted for OpenBSD, not available
+	/*
+	 * Adjusted for OpenBSD, not available
 	 * ATF_TP_ADD_TC(tp, pipe2_nosigpipe);
 	 */
 	ATF_TP_ADD_TC(tp, pipe2_einval);

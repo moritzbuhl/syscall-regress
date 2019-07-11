@@ -129,7 +129,8 @@ ATF_TC_BODY(mlock_err, tc)
 	 * unlocking memory that is not locked is an error...
 	 */
 
-	/* Adjusted for OpenBSD
+	/*
+	 * Adjusted for OpenBSD
 	 * errno = 0;
 	 * ATF_REQUIRE_ERRNO(ENOMEM, munlock(buf, page) == -1);
 	 */
