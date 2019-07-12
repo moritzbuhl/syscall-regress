@@ -14,6 +14,7 @@ t_chroot	- fchroot is not implemented
 t_clock_gettime	- requires sysctlbyname
 t_dup		- OpenBSD dup3 is similar Linux dup3
 t_fsync		- replace mkstemp
+t_mknod 	- remove tests for unsupported file types
 t_mmap		- remove mmap_va0 test
 t_msgget	- remove msgget_limit test
 t_pipe2 	- remove F_GETNOSIGPIPE cases, remove pipe2_nosigpipe test
@@ -24,7 +25,6 @@ t_select 	- remove sigset_t is a struct as it is int on OpenBSD
 Failing tests:
 t_listen 	- wrong errno according to POSIX
 t_mlock 	- wrong errno, succeeds where not expected, POSIX imprecise
-t_mknod 	- mknod(path, 0100000, 0) != 0
 t_msgsnd 	- msgsnd(id, &msg, sizeof(struct msg), 004000) != -1
 t_ptrace 	- ptrace(0, 0, ((void *)0), 0) != -1
 t_stat 		- invalid GID with doas

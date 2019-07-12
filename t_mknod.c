@@ -170,13 +170,16 @@ ATF_TC_BODY(mknod_stat, tc)
 
 	(void)memset(&st, 0, sizeof(struct stat));
 
-	ATF_REQUIRE(mknod(path, S_IFREG, 0) == 0);
-	ATF_REQUIRE(stat(path, &st) == 0);
-
-	if (S_ISREG(st.st_mode) == 0)
-		atf_tc_fail_nonfatal("invalid mode from mknod(2) (S_IFREG)");
-
-	ATF_REQUIRE(unlink(path) == 0);
+	/*
+	 * Adjusted for OpenBSD, only supports FIFO and device special files
+	 * ATF_REQUIRE(mknod(path, S_IFREG, 0) == 0);
+	 * ATF_REQUIRE(stat(path, &st) == 0);
+	 *
+	 * if (S_ISREG(st.st_mode) == 0)
+	 *	atf_tc_fail_nonfatal("invalid mode from mknod(2) (S_IFREG)");
+	 *
+	 * ATF_REQUIRE(unlink(path) == 0);
+	 */
 }
 
 ATF_TC_CLEANUP(mknod_stat, tc)
