@@ -10,7 +10,7 @@ t_getitimer	t_getsockname	t_mkfifo	t_sendrecv	t_write
 t_getlogin	t_gettimeofday	t_msgctl	t_setuid
 
 Tests passing after adjustments:
-t_chroot	- fchroot is not implemented, add additional cleanup
+t_chroot	- fchroot is not implemented
 t_clock_gettime	- requires sysctlbyname
 t_dup		- OpenBSD dup3 is similar Linux dup3
 t_fsync		- replace mkstemp
@@ -26,9 +26,9 @@ t_listen 	- wrong errno according to POSIX
 t_mlock 	- wrong errno, succeeds where not expected, POSIX imprecise
 t_mknod 	- mknod(path, 0100000, 0) != 0
 t_msgsnd 	- msgsnd(id, &msg, sizeof(struct msg), 004000) != -1
-t_ptrace 	- ptrace(0, 0, ((void *)0), 0) != -1, add additional cleanup
+t_ptrace 	- ptrace(0, 0, ((void *)0), 0) != -1
 t_stat 		- invalid GID with doas
-t_syscall	- SIGSEGV, add additional cleanup
+t_syscall	- SIGSEGV
 t_truncate	- test requires non-existent file
 t_unlink	- wrong errno according to POSIX
 

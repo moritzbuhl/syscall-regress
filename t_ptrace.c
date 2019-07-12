@@ -133,7 +133,7 @@ ATF_TC_BODY(attach_self, tc)
 	ATF_REQUIRE_ERRNO(EINVAL, ptrace(PT_ATTACH, getpid(), NULL, 0) == -1);
 }
 
-ATF_TC_WITH_CLEANUP(attach_chroot);
+ATF_TC(attach_chroot);
 ATF_TC_HEAD(attach_chroot, tc)
 {
 	atf_tc_set_md_var(tc, "descr",
@@ -195,18 +195,6 @@ ATF_TC_BODY(attach_chroot, tc)
 
         printf("fds_toparent is no longer needed - close it\n");
         ATF_REQUIRE(close(fds_toparent[0]) == 0);
-}
-
-/* Added for OpenBSD */
-ATF_TC_CLEANUP(attach_chroot, tc)
-{
-	char buf[PATH_MAX];
-
-	(void)memset(buf, '\0', sizeof(buf));
-	ATF_REQUIRE(getcwd(buf, sizeof(buf)) != NULL);
-	(void)strlcat(buf, "/dir", sizeof(buf));
-
-	ATF_REQUIRE(rmdir(buf) == 0);
 }
 
 ATF_TC(traceme_twice);

@@ -60,7 +60,7 @@ static const char secrect_data[1024] = {
 #define	FILE_NAME	"dummy"
 
 #ifndef _LP64
-ATF_TC_WITH_CLEANUP(mmap_syscall);
+ATF_TC(mmap_syscall);
 
 ATF_TC_HEAD(mmap_syscall, tc)
 {
@@ -83,14 +83,9 @@ ATF_TC_BODY(mmap_syscall, tc)
 
  	ATF_REQUIRE(strcmp(p, secrect_data) == 0);
 }
-
-ATF_TC_CLEANUP(mmap_syscall, tc)
-{
-	(void)unlink(FILE_NAME);
-}
 #endif
 
-ATF_TC_WITH_CLEANUP(mmap___syscall);
+ATF_TC(mmap___syscall);
 
 ATF_TC_HEAD(mmap___syscall, tc)
 {
@@ -113,11 +108,6 @@ ATF_TC_BODY(mmap___syscall, tc)
 	ATF_REQUIRE(p != NULL);
 
 	ATF_REQUIRE(strcmp(p, secrect_data) == 0);
-}
-
-ATF_TC_CLEANUP(mmap___syscall, tc)
-{
-	(void)unlink(FILE_NAME);
 }
 
 ATF_TP_ADD_TCS(tp)
