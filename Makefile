@@ -56,11 +56,11 @@ SRCS_$p = $p.c atf-c.c
 REGRESS_TARGETS+= run-$t
 run-$t: $t
 	@echo "\n======== $@ ========"
-	@ntests=`${.CURDIR}/$t -n`; \
+	@ntests=`./$t -n`; \
 	echo "1..$$ntests"; \
 	for i in `jot - 1 $$ntests`; do \
 	    echo -n "$$i "; \
-	    eval `${.CURDIR}/$t -i $$i`; \
+	    eval `./$t -i $$i`; \
 	    ${.MAKE} t=$t ATF=$$i \
 		"REQ_USER=$$REQ_USER" "DESCR=\"$$DESCR\""; \
 	    unset REQ_USER DESCR; \
@@ -79,11 +79,11 @@ REGRESS_TARGETS+= run-$t-${ATF}
 run-$t-${ATF}:
 	@echo ${DESCR}
 . if ${REQ_USER} == "root"
-	@${SUDO} ${.CURDIR}/$t -r ${ATF}
+	${SUDO} ./$t -r ${ATF}
 . elif ${REQ_USER} == "unprivileged" && ${CUR_USER} == 0
-	@${SUDO} su ${BUILDUSER} -c exec ${.CURDIR}/$t -r ${ATF}
+	${SUDO} su ${BUILDUSER} -c exec ./$t -r ${ATF}
 . else # REQ_USER == ""
-	@${.CURDIR}/$t -r ${ATF}
+	./$t -r ${ATF}
 . endif
 
 .endif # defined(ATF)
@@ -92,6 +92,6 @@ CLEANFILES+=access dummy mmap
 
 clean: _SUBDIRUSE
 	rm -f [Ee]rrs mklog *.core ${PROG} ${PROGS} ${OBJS} ${CLEANFILES}
-	${SUDO} rmdir ${.CURDIR}/dir
+	${SUDO} rmdir ./dir
 
 .include <bsd.regress.mk>
