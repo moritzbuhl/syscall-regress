@@ -59,6 +59,7 @@ run-$t: $t
 	@ntests=`${.CURDIR}/$t -n`; \
 	echo "1..$$ntests"; \
 	for i in `jot - 1 $$ntests`; do \
+	    echo -n "$$i "; \
 	    eval `${.CURDIR}/$t -i $$i`; \
 	    ${.MAKE} t=$t ATF=$$i \
 		"REQ_USER=$$REQ_USER" "DESCR=\"$$DESCR\""; \
@@ -68,40 +69,29 @@ run-$t: $t
 
 .else # defined(ATF)
 
-CUR_USER!=id -un
-
 . if ${REQ_USER} == "root"
-.  if ${CUR_USER} == "root"
-REGRESS_TARGETS+= run-$t-${ATF}
-REGRESS_CLEANUP+= cleanup-$t-${ATF}
-.  elif defined(SUDO)
 REGRESS_ROOT_TARGETS+= run-$t-${ATF}
-REGRESS_CLEANUP+= cleanup-$t-${ATF}
-.  else
-REGRESS_SKIP_TARGETS+=run-$t-${ATF}
-.  endif
-
-. elif ${REQ_USER} == "nobody"
-.  if defined(SUDO) || ${CUR_USER} != "root"
-SUDO+= -u ${REQ_USER}
-REGRESS_TARGETS+= run-$t-${ATF}
-REGRESS_CLEANUP+= cleanup-$t-${ATF}
-.  else
-REGRESS_SKIP_TARGETS+=run-$t-${ATF}
-.  endif
-
-. else # REQ_USER == ""
-REGRESS_TARGETS+=run-$t-${ATF}
-REGRESS_CLEANUP+= cleanup-$t-${ATF}
 . endif
 
-run-$t-${ATF}:
-	@echo "${ATF}" ${DESCR}
-	@${.CURDIR}/$t -r ${ATF}
+CUR_USER!=id -g
+REGRESS_TARGETS+= run-$t-${ATF}
 
-cleanup-$t-${ATF}:
-	@${.CURDIR}/$t -c ${ATF}
+run-$t-${ATF}:
+	@echo ${DESCR}
+. if ${REQ_USER} == "root"
+	@${SUDO} ${.CURDIR}/$t -r ${ATF}
+. elif ${REQ_USER} == "nobody" && ${CUR_USER} == 0
+	@${SUDO} su ${BUILDUSER} -c exec ${.CURDIR}/$t -r ${ATF}
+. else # REQ_USER == ""
+	@${.CURDIR}/$t -r ${ATF}
+. endif
 
 .endif # defined(ATF)
+
+CLEANFILES+=access dummy mmap
+
+clean: _SUBDIRUSE
+	rm -f [Ee]rrs mklog *.core ${PROG} ${PROGS} ${OBJS} ${CLEANFILES}
+	${SUDO} rmdir ${.CURDIR}/dir
 
 .include <bsd.regress.mk>
