@@ -92,6 +92,6 @@ CLEANFILES+=access dummy mmap
 
 clean: _SUBDIRUSE
 	rm -f [Ee]rrs mklog *.core ${PROG} ${PROGS} ${OBJS} ${CLEANFILES}
-	${SUDO} rmdir ./dir
+	${SUDO} rm -rf ./dir
 
 .include <bsd.regress.mk>
