@@ -68,14 +68,10 @@ ATF_TC_FUNCTIONS(fn)
 #define ATF_CLEANUP(i)		atf_test(i, ATF_CLEANUP_TEST)
 
 #define atf_tc_set_md_var(tc, attr, fmt, ...)				\
-	if (strcmp(attr, "descr") == 0) {				\
+	if (strcmp(attr, "descr") == 0)					\
 		printf("DESCR=\"" fmt "\"\n", ##__VA_ARGS__);		\
-	} else if (strcmp(attr, "require.user") == 0) {			\
-		if (strcmp(fmt, "unprivileged") == 0)			\
-			printf("REQ_USER=nobody\n");			\
-		else if (strcmp(fmt, "root") == 0)			\
-			printf("REQ_USER=root\n");			\
-	}
+	else if (strcmp(attr, "require.user") == 0)			\
+		printf("REQ_USER=" fmt "\n", ##__VA_ARGS__);
 
 #define ATF_CHECK		ATF_REQUIRE
 #define ATF_CHECK_MSG		ATF_REQUIRE_MSG

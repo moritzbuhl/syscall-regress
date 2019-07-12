@@ -80,7 +80,7 @@ run-$t-${ATF}:
 	@echo ${DESCR}
 . if ${REQ_USER} == "root"
 	@${SUDO} ${.CURDIR}/$t -r ${ATF}
-. elif ${REQ_USER} == "nobody" && ${CUR_USER} == 0
+. elif ${REQ_USER} == "unprivileged" && ${CUR_USER} == 0
 	@${SUDO} su ${BUILDUSER} -c exec ${.CURDIR}/$t -r ${ATF}
 . else # REQ_USER == ""
 	@${.CURDIR}/$t -r ${ATF}
