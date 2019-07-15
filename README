@@ -3,11 +3,11 @@ Regression tests for system calls ported from NetBSD.
 Reimplement ATF with many hacks to adjust the tests as little as possible.
 
 Tests passing without source file adjustments:
-t_access	t_getpid	t_kill		t_msgrcv	t_sigaction
-t_bind		t_getrusage	t_link		t_pipe		t_socketpair
-t_getgroups	t_getsid	t_mkdir		t_msync		t_umask
-t_getitimer	t_getsockname	t_mkfifo	t_sendrecv	t_write
-t_getlogin	t_gettimeofday	t_msgctl	t_setuid
+t_access	t_getpid	t_kill		t_msync		t_socketpair
+t_bind		t_getrusage	t_link		t_pipe		t_umask
+t_getgroups	t_getsid	t_mkdir		t_sendrecv	t_write
+t_getitimer	t_getsockname	t_mkfifo	t_setuid
+t_getlogin	t_gettimeofday	t_msgctl	t_sigaction
 
 Tests passing after adjustments:
 t_chroot	- fchroot is not implemented
@@ -17,15 +17,16 @@ t_fsync		- replace mkstemp
 t_mknod 	- remove tests for unsupported file types
 t_mmap		- remove mmap_va0 test
 t_msgget	- remove msgget_limit test
-t_pipe2 	- remove F_GETNOSIGPIPE cases, remove pipe2_nosigpipe test
 t_poll 		- remove pollts tests
 t_revoke 	- remove basic tests, revoke only on ttys supported
 t_select 	- remove sigset_t is a struct as it is int on OpenBSD
 
 Failing tests:
 t_listen 	- wrong errno according to POSIX
-t_mlock 	- wrong errno, succeeds where not expected, POSIX imprecise
+t_mlock		- wrong errno, succeeds where not expected, POSIX imprecise
+t_msgrcv	- msgrcv(id, &r, 3 - 1, 0x41, 004000) != -1
 t_msgsnd 	- msgsnd(id, &msg, sizeof(struct msg), 004000) != -1
+t_pipe2 	- closefrom(4) == -1, remove F_GETNOSIGPIPE and nosigpipe test
 t_ptrace 	- ptrace(0, 0, ((void *)0), 0) != -1
 t_stat 		- invalid GID with doas
 t_syscall	- SIGSEGV
@@ -64,5 +65,5 @@ t_timer_create		-
 t_ucontext		-
 t_vfork			-
 t_wait			-
-t_wait_noproc
-t_wait_noproc_wnohang
+t_wait_noproc		-
+t_wait_noproc_wnohang	-

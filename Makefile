@@ -2,49 +2,22 @@
 
 .if !defined(ATF)
 
-PROGS +=		t_access
-PROGS +=		t_bind
-PROGS +=		t_chroot
-PROGS +=		t_clock_gettime
-PROGS +=		t_dup
-PROGS +=		t_fsync
-PROGS +=		t_getgroups
-PROGS +=		t_getitimer
-PROGS +=		t_getlogin
-PROGS +=		t_getpid
-PROGS +=		t_getrusage
-PROGS +=		t_getsid
-PROGS +=		t_getsockname
-PROGS +=		t_gettimeofday
-PROGS +=		t_kill
-PROGS +=		t_link
-PROGS +=		t_listen
-PROGS +=		t_mkdir
-PROGS +=		t_mkfifo
-PROGS +=		t_mknod
-PROGS +=		t_mlock
-PROGS +=		t_mmap
-PROGS +=		t_msgctl
-PROGS +=		t_msgget
-PROGS +=		t_msgrcv
-PROGS +=		t_msgsnd
-PROGS +=		t_msync
-PROGS +=		t_pipe
-PROGS +=		t_pipe2
-PROGS +=		t_poll
-PROGS +=		t_ptrace
-PROGS +=		t_revoke
-PROGS +=		t_select
-PROGS +=		t_sendrecv
-PROGS +=		t_setuid
-PROGS +=		t_sigaction
-PROGS +=		t_socketpair
-PROGS +=		t_stat
-PROGS +=		t_syscall
-PROGS +=		t_truncate
-PROGS +=		t_umask
-PROGS +=		t_unlink
-PROGS +=		t_write
+PROGS+=	t_access t_bind t_chroot t_clock_gettime t_dup t_fsync t_getgroups
+PROGS+=	t_getitimer t_getlogin t_getpid t_getrusage t_getsid t_getsockname
+PROGS+=	t_gettimeofday t_kill t_link t_mkdir t_mkfifo t_mknod t_mmap t_msgctl
+PROGS+=	t_msgget t_msync t_pipe t_poll t_revoke t_select t_sendrecv t_setuid
+PROGS+=	t_socketpair t_sigaction t_truncate t_umask t_write
+
+# failing tests
+PROGS+=	t_listen
+PROGS+=	t_mlock
+PROGS+=	t_msgrcv
+PROGS+=	t_msgsnd
+PROGS+=	t_pipe2
+PROGS+=	t_ptrace
+PROGS+=	t_stat
+PROGS+=	t_syscall
+PROGS+=	t_unlink
 
 LDADD_t_getpid = 	-lpthread
 
