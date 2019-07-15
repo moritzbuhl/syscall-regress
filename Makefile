@@ -59,12 +59,24 @@ run-$t-${ATF}:
 	./$t -r ${ATF}
 . endif
 
+. if $t == "t_truncate" && ${ATF} == "4"
+setup-t_truncate:
+.  if ${CUR_USER} == 0
+	@${SUDO} touch ./truncate_test.root_owned
+	@${SUDO} chown root:wheel ./truncate_test.root_owned
+.  else
+	@echo SKIPPED
+.  endif
+
+REGRESS_SETUP_ONCE += setup-t_truncate
+. endif
+
 .endif # defined(ATF)
 
 CLEANFILES+=access dummy mmap
 
 clean: _SUBDIRUSE
 	rm -f [Ee]rrs mklog *.core ${PROG} ${PROGS} ${OBJS} ${CLEANFILES}
-	${SUDO} rm -rf ./dir
+	${SUDO} rm -rf ./dir ./truncate_test.root_owned
 
 .include <bsd.regress.mk>

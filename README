@@ -4,9 +4,9 @@ Reimplement ATF with many hacks to adjust the tests as little as possible.
 
 Tests passing without source file adjustments:
 t_access	t_getpid	t_kill		t_msync		t_socketpair
-t_bind		t_getrusage	t_link		t_pipe		t_umask
-t_getgroups	t_getsid	t_mkdir		t_sendrecv	t_write
-t_getitimer	t_getsockname	t_mkfifo	t_setuid
+t_bind		t_getrusage	t_link		t_pipe		t_truncate
+t_getgroups	t_getsid	t_mkdir		t_sendrecv	t_umask
+t_getitimer	t_getsockname	t_mkfifo	t_setuid	t_write
 t_getlogin	t_gettimeofday	t_msgctl	t_sigaction
 
 Tests passing after adjustments:
@@ -30,7 +30,6 @@ t_pipe2 	- closefrom(4) == -1, remove F_GETNOSIGPIPE and nosigpipe test
 t_ptrace 	- ptrace(0, 0, ((void *)0), 0) != -1
 t_stat 		- invalid GID with doas
 t_syscall	- SIGSEGV
-t_truncate	- test requires non-existent file
 t_unlink	- wrong errno according to POSIX
 
 Excluded tests:
