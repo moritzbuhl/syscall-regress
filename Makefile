@@ -4,15 +4,15 @@
 
 PROGS+=	t_access t_bind t_chroot t_clock_gettime t_dup t_fsync t_getgroups
 PROGS+=	t_getitimer t_getlogin t_getpid t_getrusage t_getsid t_getsockname
-PROGS+=	t_gettimeofday t_kill t_link t_mkdir t_mkfifo t_mknod t_mmap t_msgctl
-PROGS+=	t_msgget t_msync t_pipe t_poll t_revoke t_select t_sendrecv t_setuid
-PROGS+=	t_socketpair t_sigaction t_truncate t_umask t_write
+PROGS+=	t_gettimeofday t_kill t_link t_listen t_mkdir t_mknod t_msgctl 
+PROGS+=	t_msgget t_msgsnd t_msync t_pipe t_poll t_revoke t_select t_sendrecv 
+PROGS+= t_setuid t_socketpair t_sigaction t_truncate t_umask t_write
 
 # failing tests
-PROGS+=	t_listen
+PROGS+=	t_mkfifo
 PROGS+=	t_mlock
+PROGS+=	t_mmap
 PROGS+=	t_msgrcv
-PROGS+=	t_msgsnd
 PROGS+=	t_pipe2
 PROGS+=	t_ptrace
 PROGS+=	t_stat
