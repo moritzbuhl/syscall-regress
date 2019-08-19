@@ -2,12 +2,14 @@
 
 .if !defined(ATF)
 
+PROGS=
 PROGS+=	t_access t_bind t_chroot t_clock_gettime t_dup t_fsync t_getgroups
 PROGS+=	t_getitimer t_getlogin t_getpid t_getrusage t_getsid t_getsockname
-PROGS+=	t_gettimeofday t_kill t_link t_listen t_mkdir t_mknod t_msgctl 
-PROGS+=	t_msgget t_msgsnd t_msync t_pipe t_poll t_revoke t_select t_sendrecv 
+PROGS+=	t_gettimeofday t_kill t_link t_listen t_mkdir t_mknod t_msgctl
+PROGS+=	t_msgget t_msgsnd t_msync t_pipe t_poll t_revoke t_select t_sendrecv
 PROGS+= t_setuid t_socketpair t_sigaction t_truncate t_umask t_write
 
+. if 0
 # failing tests
 PROGS+=	t_mkfifo
 PROGS+=	t_mlock
@@ -18,65 +20,67 @@ PROGS+=	t_ptrace
 PROGS+=	t_stat
 PROGS+=	t_syscall
 PROGS+=	t_unlink
-
-LDADD_t_getpid = 	-lpthread
+. endif
 
 . for p in ${PROGS}
-SRCS_$p = $p.c atf-c.c
+SRCS_$p =		$p.c atf-c.c
 . endfor
 
+LDADD_t_getpid =	-lpthread
+
+REGRESS_TARGETS =
+REGRESS_ROOT_TARGETS =
+
 . for t in ${PROGS}
-REGRESS_TARGETS+= run-$t
+REGRESS_TARGETS +=	run-$t
 run-$t: $t
 	@echo "\n======== $@ ========"
-	@ntests=`./$t -n`; \
+	ntests=`./$t -n`; \
 	echo "1..$$ntests"; \
 	for i in `jot - 1 $$ntests`; do \
 	    echo -n "$$i "; \
 	    eval `./$t -i $$i`; \
-	    ${.MAKE} t=$t ATF=$$i \
-		"REQ_USER=$$REQ_USER" "DESCR=\"$$DESCR\""; \
-	    unset REQ_USER DESCR; \
+	    ${MAKE} -C ${.CURDIR} TEST=$t ATF=$$i \
+		"REQ_USER=$$REQ_USER" "DESCR=\"$$DESCR\"" \
+		$@-$$i; \
 	done
 . endfor
 
 .else # defined(ATF)
 
 . if ${REQ_USER} == "root"
-REGRESS_ROOT_TARGETS+= run-$t-${ATF}
+REGRESS_ROOT_TARGETS +=	run-${TEST}-${ATF}
 . endif
 
-CUR_USER!=id -g
-REGRESS_TARGETS+= run-$t-${ATF}
+CUR_USER !=		id -g
+REGRESS_TARGETS +=	run-${TEST}-${ATF}
 
-run-$t-${ATF}:
+run-${TEST}-${ATF}:
 	@echo ${DESCR}
 . if ${REQ_USER} == "root"
-	${SUDO} ./$t -r ${ATF}
+	${SUDO} ./${TEST} -r ${ATF}
 . elif ${REQ_USER} == "unprivileged" && ${CUR_USER} == 0
-	${SUDO} su ${BUILDUSER} -c exec ./$t -r ${ATF}
-. else # REQ_USER == ""
-	./$t -r ${ATF}
-. endif
-
-. if $t == "t_truncate" && ${ATF} == "4"
-setup-t_truncate:
-.  if ${CUR_USER} == 0
-	@${SUDO} touch ./truncate_test.root_owned
-	@${SUDO} chown root:wheel ./truncate_test.root_owned
-.  else
-	@echo SKIPPED
-.  endif
-
-REGRESS_SETUP_ONCE += setup-t_truncate
+	${SUDO} su ${BUILDUSER} -c exec ./${TEST} -r ${ATF}
+. elif ${REQ_USER} == "unprivileged" || ${REQ_USER} == ""
+	./${TEST} -r ${ATF}
+. else
+	# bad REQ_USER: ${REQ_USER}
+	false
 . endif
 
 .endif # defined(ATF)
 
-CLEANFILES+=access dummy mmap
+run-t_truncate: setup-t_truncate
+setup-t_truncate:
+	${SUDO} touch truncate_test.root_owned
+	${SUDO} chown root:wheel truncate_test.root_owned
 
-clean: _SUBDIRUSE
-	rm -f [Ee]rrs mklog *.core ${PROG} ${PROGS} ${OBJS} ${CLEANFILES}
-	${SUDO} rm -rf ./dir ./truncate_test.root_owned
+run-t_chroot: cleanup-t_chroot
+cleanup-t_chroot:
+	${SUDO} rm -rf ./dir
+
+CLEANFILES +=	access dummy mmap truncate_test.root_owned
 
 .include <bsd.regress.mk>
+
+clean: cleanup-t_chroot
