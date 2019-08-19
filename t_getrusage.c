@@ -208,7 +208,6 @@ ATF_TC_BODY(getrusage_utime_back, tc)
 	/*
 	 * Test that two consecutive calls are sane.
 	 */
-	atf_tc_expect_fail("PR kern/30115");
 
 	for (i = 0; i < maxiter; i++) {
 
@@ -226,8 +225,6 @@ ATF_TC_BODY(getrusage_utime_back, tc)
 		if (timercmp(&ru2.ru_utime, &ru1.ru_utime, <) != 0)
 			atf_tc_fail("user time went backwards");
 	}
-
-	atf_tc_fail("anticipated error did not occur");
 }
 
 ATF_TC(getrusage_utime_zero);
@@ -244,24 +241,18 @@ ATF_TC_BODY(getrusage_utime_zero, tc)
 	/*
 	 * Test that getrusage(2) does not return
 	 * zero user time for the calling process.
-	 *
-	 * See also (duplicate) PR port-amd64/41734.
 	 */
-	atf_tc_expect_fail("PR kern/30115");
 
 	for (i = 0; i < maxiter; i++) {
-
 		work();
-
-		(void)memset(&ru, 0, sizeof(struct rusage));
-
-		ATF_REQUIRE(getrusage(RUSAGE_SELF, &ru) == 0);
-
-		if (ru.ru_utime.tv_sec == 0 && ru.ru_utime.tv_usec == 0)
-			atf_tc_fail("zero user time from getrusage(2)");
 	}
 
-	atf_tc_fail("anticipated error did not occur");
+	(void)memset(&ru, 0, sizeof(struct rusage));
+
+	ATF_REQUIRE(getrusage(RUSAGE_SELF, &ru) == 0);
+
+	if (ru.ru_utime.tv_sec == 0 && ru.ru_utime.tv_usec == 0)
+		atf_tc_fail("zero user time from getrusage(2)");
 }
 
 ATF_TP_ADD_TCS(tp)
