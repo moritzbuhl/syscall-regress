@@ -4,16 +4,17 @@ Reimplement ATF with many hacks to adjust the tests as little as possible.
 
 Tests passing without source file adjustments:
 t_access	t_getpid	t_kill		t_msgsnd	t_sigaction
-t_bind		t_getrusage	t_link		t_msync		t_socketpair
-t_getgroups	t_getsid	t_listen	t_pipe		t_truncate
-t_getitimer	t_getsockname	t_mkdir		t_sendrecv	t_umask
-t_getlogin	t_gettimeofday	t_msgctl	t_setuid	t_write
+t_bind		t_link		t_msync		t_socketpair	t_getgroups
+t_getsid	t_listen	t_pipe		t_truncate	t_getitimer
+t_getsockname	t_mkdir		t_sendrecv	t_umask		t_getlogin
+t_gettimeofday	t_msgctl	t_setuid	t_write
 
 Tests passing after adjustments:
 t_chroot	- fchroot is not implemented
 t_clock_gettime	- requires sysctlbyname
 t_dup		- OpenBSD dup3 is similar Linux dup3
 t_fsync		- replace mkstemp
+t_getrusage	- no expected fail, PR kern/30115 is NetBSD, work more
 t_mknod 	- remove tests for unsupported file types
 t_msgget	- remove msgget_limit test
 t_poll 		- remove pollts tests
