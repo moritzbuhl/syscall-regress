@@ -1,0 +1,42 @@
+#	$OpenBSD$
+
+PROGS+=	t_access t_bind t_chroot t_clock_gettime t_dup t_fsync t_getgroups
+PROGS+=	t_getitimer t_getlogin t_getpid t_getrusage t_getsid t_getsockname
+PROGS+=	t_gettimeofday t_kill t_link t_listen t_mkdir t_mknod t_msgctl 
+PROGS+=	t_msgget t_msgsnd t_msync t_pipe t_poll t_revoke t_select t_sendrecv 
+PROGS+= t_setuid t_socketpair t_sigaction t_truncate t_umask t_write
+
+# failing tests
+PROGS+=	t_mkfifo
+PROGS+=	t_mlock
+PROGS+=	t_mmap
+PROGS+=	t_msgrcv
+PROGS+=	t_pipe2
+PROGS+=	t_ptrace
+PROGS+=	t_stat
+PROGS+=	t_syscall
+PROGS+=	t_unlink
+
+LDADD_t_getpid = 	-lpthread
+
+. for p in ${PROGS}
+SRCS_$p = $p.c atf-c.c
+. endfor
+
+. for t in ${PROGS}
+REGRESS_TARGETS+= run-$t
+run-$t: $t
+	@echo "\n======== $@ ========"
+	@ntests=`./$t -n`; \
+	echo "1..$$ntests"; \
+	for i in `jot - 1 $$ntests`; do \
+	    echo -n "$$i "; \
+	    ${.MAKE} t=$t i=$$i; \
+	done
+. endfor
+
+CLEANFILES+=access dummy mmap
+
+clean: _SUBDIRUSE
+	rm -f [Ee]rrs mklog *.core ${PROG} ${PROGS} ${OBJS} ${CLEANFILES}
+	${SUDO} rm -rf ./dir ./truncate_test.root_owned

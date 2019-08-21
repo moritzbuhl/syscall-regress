@@ -1,65 +1,31 @@
 #	$OpenBSD$
 
-.if !defined(ATF)
+# run regression test number i of program t.
+# run all tests if i is not defined
 
-PROGS+=	t_access t_bind t_chroot t_clock_gettime t_dup t_fsync t_getgroups
-PROGS+=	t_getitimer t_getlogin t_getpid t_getrusage t_getsid t_getsockname
-PROGS+=	t_gettimeofday t_kill t_link t_listen t_mkdir t_mknod t_msgctl 
-PROGS+=	t_msgget t_msgsnd t_msync t_pipe t_poll t_revoke t_select t_sendrecv 
-PROGS+= t_setuid t_socketpair t_sigaction t_truncate t_umask t_write
+.if defined(i)
 
-# failing tests
-PROGS+=	t_mkfifo
-PROGS+=	t_mlock
-PROGS+=	t_mmap
-PROGS+=	t_msgrcv
-PROGS+=	t_pipe2
-PROGS+=	t_ptrace
-PROGS+=	t_stat
-PROGS+=	t_syscall
-PROGS+=	t_unlink
-
-LDADD_t_getpid = 	-lpthread
-
-. for p in ${PROGS}
-SRCS_$p = $p.c atf-c.c
-. endfor
-
-. for t in ${PROGS}
-REGRESS_TARGETS+= run-$t
-run-$t: $t
-	@echo "\n======== $@ ========"
-	@ntests=`./$t -n`; \
-	echo "1..$$ntests"; \
-	for i in `jot - 1 $$ntests`; do \
-	    echo -n "$$i "; \
-	    eval `./$t -i $$i`; \
-	    ${.MAKE} t=$t ATF=$$i \
-		"REQ_USER=$$REQ_USER" "DESCR=\"$$DESCR\""; \
-	    unset REQ_USER DESCR; \
-	done
-. endfor
-
-.else # defined(ATF)
+REQ_USER!= eval `./$t -i $i`; echo $$REQ_USER
+DESCR!= eval `./$t -i $i`; echo $$DESCR
 
 . if ${REQ_USER} == "root"
-REGRESS_ROOT_TARGETS+= run-$t-${ATF}
+REGRESS_ROOT_TARGETS+= run-$t-$i
 . endif
 
 CUR_USER!=id -g
-REGRESS_TARGETS+= run-$t-${ATF}
+REGRESS_TARGETS+= run-$t-$i
 
-run-$t-${ATF}:
-	@echo ${DESCR}
+run-$t-$i:
+	@echo "${DESCR}"
 . if ${REQ_USER} == "root"
-	${SUDO} ./$t -r ${ATF}
+	${SUDO} ./$t -r $i
 . elif ${REQ_USER} == "unprivileged" && ${CUR_USER} == 0
-	${SUDO} su ${BUILDUSER} -c exec ./$t -r ${ATF}
+	${SUDO} su ${BUILDUSER} -c exec ./$t -r $i
 . else # REQ_USER == ""
-	./$t -r ${ATF}
+	./$t -r $i
 . endif
 
-. if $t == "t_truncate" && ${ATF} == "4"
+. if $t == "t_truncate" && $i == "4"
 setup-t_truncate:
 .  if ${CUR_USER} == 0
 	@${SUDO} touch ./truncate_test.root_owned
@@ -71,12 +37,8 @@ setup-t_truncate:
 REGRESS_SETUP_ONCE += setup-t_truncate
 . endif
 
-.endif # defined(ATF)
-
-CLEANFILES+=access dummy mmap
-
-clean: _SUBDIRUSE
-	rm -f [Ee]rrs mklog *.core ${PROG} ${PROGS} ${OBJS} ${CLEANFILES}
-	${SUDO} rm -rf ./dir ./truncate_test.root_owned
+.else
+. include "Makefile.progs"
+.endif
 
 .include <bsd.regress.mk>
