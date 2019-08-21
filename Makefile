@@ -8,14 +8,14 @@ REGRESS_ROOT_TARGETS =
 
 .if defined(NUM)
 
-REQ_USER!= eval `./${TEST} -i ${NUM}`; echo $$REQ_USER
-DESCR!= eval `./${TEST} -i ${NUM}`; echo $$DESCR
+REQ_USER !=	eval `./${TEST} -i ${NUM}`; echo $$REQ_USER
+DESCR !=	eval `./${TEST} -i ${NUM}`; echo $$DESCR
 
 . if ${REQ_USER} == "root"
 REGRESS_ROOT_TARGETS +=	run-${TEST}-${NUM}
 . endif
 
-CUR_USER!=id -g
+CUR_USER !=		id -g
 REGRESS_TARGETS +=	run-${TEST}-${NUM}
 
 run-${TEST}-${NUM}:
