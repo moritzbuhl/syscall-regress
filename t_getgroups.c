@@ -56,7 +56,7 @@ ATF_TC_BODY(getgroups_err, tc)
 
 	errno = 0;
 
-	ATF_REQUIRE(getgroups(10, (gid_t *)-1) == -1);
+	ATF_REQUIRE(getgroups(NGROUPS_MAX, (gid_t *)-1) == -1);
 	ATF_REQUIRE(errno == EFAULT);
 
 	errno = 0;
