@@ -1,5 +1,5 @@
-/*	$OpenBSD: t_getitimer.c,v 1.2 2019/11/22 15:59:53 bluhm Exp $	*/
-/* $NetBSD: t_getitimer.c,v 1.3 2019/07/13 12:44:02 gson Exp $ */
+/*	$OpenBSD: t_getitimer.c,v 1.1.1.1 2019/11/19 19:57:03 bluhm Exp $	*/
+/* $NetBSD: t_getitimer.c,v 1.2 2012/03/22 18:20:46 christos Exp $ */
 
 /*-
  * Copyright (c) 2011 The NetBSD Foundation, Inc.
@@ -179,13 +179,11 @@ ATF_TC_BODY(setitimer_old, tc)
 	struct itimerval it, ot;
 
 	/*
-	 * Make two calls; the second one should store the old
-	 * timer value which should be the same as that set in
-	 * the first call, or slightly less due to time passing
-	 * between the two calls.
+	 * Make two calls; the second one
+	 * should store the old values.
 	 */
 	it.it_value.tv_sec = 4;
-	it.it_value.tv_usec = 999999;
+	it.it_value.tv_usec = 3;
 
 	it.it_interval.tv_sec = 0;
 	it.it_interval.tv_usec = 0;
@@ -200,8 +198,7 @@ ATF_TC_BODY(setitimer_old, tc)
 
 	ATF_REQUIRE(setitimer(ITIMER_REAL, &it, &ot) == 0);
 
-	/* Check seconds only as microseconds may have decremented */
-	if (ot.it_value.tv_sec != 4)
+	if (ot.it_value.tv_sec != 4 || ot.it_value.tv_usec != 3)
 		atf_tc_fail("setitimer(2) did not store old values");
 }
 

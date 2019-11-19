@@ -31,8 +31,7 @@ PROGS +=	t_getgroups t_getitimer t_getlogin t_getpid t_getrusage
 PROGS +=	t_getsid t_getsockname t_gettimeofday t_kill t_link t_listen
 PROGS +=	t_mkdir t_mknod t_msgctl t_msgget t_msgsnd t_msync t_pipe
 PROGS +=	t_poll t_revoke t_select t_sendrecv t_setuid t_socketpair
-PROGS +=	t_sigaction t_truncate t_umask t_wait_noproc
-PROGS +=	t_wait_noproc_wnohang t_write
+PROGS +=	t_sigaction t_truncate t_umask t_write
 
 # failing tests
 .if 0
