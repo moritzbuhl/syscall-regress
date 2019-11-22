@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_write.c,v 1.1.1.1 2019/11/19 19:57:04 bluhm Exp $	*/
 /* $NetBSD: t_write.c,v 1.6 2017/07/09 22:18:43 christos Exp $ */
 
 /*-

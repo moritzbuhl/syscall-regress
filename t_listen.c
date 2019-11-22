@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_listen.c,v 1.1.1.1 2019/11/19 19:57:03 bluhm Exp $	*/
 /*	$NetBSD: t_listen.c,v 1.6 2019/07/09 16:24:01 maya Exp $	*/
 /*
  * Copyright (c) 2007 The NetBSD Foundation, Inc.

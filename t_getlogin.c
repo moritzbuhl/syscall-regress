@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_getlogin.c,v 1.1.1.1 2019/11/19 19:57:03 bluhm Exp $	*/
 /* $NetBSD: t_getlogin.c,v 1.1 2011/07/07 06:57:53 jruoho Exp $ */
 
 /*-

@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_mmap.c,v 1.1.1.1 2019/11/19 19:57:04 bluhm Exp $	*/
 /* $NetBSD: t_mmap.c,v 1.13 2017/05/23 13:04:29 christos Exp $ */
 
 /*-

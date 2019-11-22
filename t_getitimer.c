@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_getitimer.c,v 1.1.1.1 2019/11/19 19:57:03 bluhm Exp $	*/
 /* $NetBSD: t_getitimer.c,v 1.2 2012/03/22 18:20:46 christos Exp $ */
 
 /*-

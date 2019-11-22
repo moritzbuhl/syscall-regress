@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_mlock.c,v 1.1.1.1 2019/11/19 19:57:04 bluhm Exp $	*/
 /* $NetBSD: t_mlock.c,v 1.7 2019/03/13 08:50:12 kre Exp $ */
 
 /*-

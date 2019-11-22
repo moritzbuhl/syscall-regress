@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: atf-c.h,v 1.1.1.1 2019/11/19 19:57:03 bluhm Exp $	*/
 /*
  * Copyright (c) 2019 Moritz Buhl <openbsd@moritzbuhl.de>
  *

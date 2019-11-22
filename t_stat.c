@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_stat.c,v 1.1.1.1 2019/11/19 19:57:04 bluhm Exp $	*/
 /* $NetBSD: t_stat.c,v 1.5 2017/01/13 20:06:50 christos Exp $ */
 
 /*-

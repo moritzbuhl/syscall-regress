@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_truncate.c,v 1.1.1.1 2019/11/19 19:57:04 bluhm Exp $	*/
 /* $NetBSD: t_truncate.c,v 1.3 2017/01/13 20:03:51 christos Exp $ */
 
 /*-

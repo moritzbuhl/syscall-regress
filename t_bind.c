@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_bind.c,v 1.1.1.1 2019/11/19 19:57:03 bluhm Exp $	*/
 /*	$NetBSD: t_bind.c,v 1.3 2015/04/05 23:28:10 rtr Exp $	*/
 /*
  * Copyright (c) 2015 The NetBSD Foundation, Inc.

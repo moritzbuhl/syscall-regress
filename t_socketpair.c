@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_socketpair.c,v 1.1.1.1 2019/11/19 19:57:04 bluhm Exp $	*/
 /* $NetBSD: t_socketpair.c,v 1.2 2017/01/13 20:04:52 christos Exp $ */
 
 /*-

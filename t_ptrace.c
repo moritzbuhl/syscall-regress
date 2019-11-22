@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_ptrace.c,v 1.1.1.1 2019/11/19 19:57:04 bluhm Exp $	*/
 /*	$NetBSD: t_ptrace.c,v 1.4 2018/05/14 12:44:40 kamil Exp $	*/
 
 /*-

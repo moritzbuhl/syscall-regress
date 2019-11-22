@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_sendrecv.c,v 1.1.1.1 2019/11/19 19:57:04 bluhm Exp $	*/
 /*	$NetBSD: t_sendrecv.c,v 1.6 2019/02/03 03:19:28 mrg Exp $	*/
 
 /*-

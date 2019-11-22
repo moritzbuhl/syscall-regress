@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_syscall.c,v 1.1.1.1 2019/11/19 19:57:04 bluhm Exp $	*/
 /*	$NetBSD: t_syscall.c,v 1.3 2018/05/28 07:55:56 martin Exp $	*/
 
 /*-

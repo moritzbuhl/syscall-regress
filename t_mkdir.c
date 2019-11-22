@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_mkdir.c,v 1.1.1.1 2019/11/19 19:57:03 bluhm Exp $	*/
 /* $NetBSD: t_mkdir.c,v 1.2 2011/10/15 07:38:31 jruoho Exp $ */
 
 /*-

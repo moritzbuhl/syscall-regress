@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_revoke.c,v 1.1.1.1 2019/11/19 19:57:04 bluhm Exp $	*/
 /* $NetBSD: t_revoke.c,v 1.2 2017/01/13 21:15:57 christos Exp $ */
 
 /*-

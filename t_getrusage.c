@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_getrusage.c,v 1.1.1.1 2019/11/19 19:57:03 bluhm Exp $	*/
 /* $NetBSD: t_getrusage.c,v 1.8 2018/05/09 08:45:03 mrg Exp $ */
 
 /*-

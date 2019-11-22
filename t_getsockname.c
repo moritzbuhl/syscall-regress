@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_getsockname.c,v 1.1.1.1 2019/11/19 19:57:03 bluhm Exp $	*/
 /*	$NetBSD: t_getsockname.c,v 1.1 2016/07/30 11:03:54 njoly Exp $	*/
 /*
  * Copyright (c) 2016 The NetBSD Foundation, Inc.
