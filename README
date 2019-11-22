@@ -38,7 +38,7 @@ t_clock_nanosleep	- not available
 t_clone			- not available
 t_connect		-
 t_fork			-
-t_getcontext		-
+t_getcontext		- not available, removed in POSIX.1-2008
 t_issetugid		-
 t_kevent		-
 t_lwp_create		- not available
@@ -60,8 +60,8 @@ t_sendmmsg		-
 t_setrlimit		-
 t_sigqueue		-
 t_sigtimedwait		-
-t_swapcontext		-
+t_swapcontext		- not available, removed in POSIX.1-2008
 t_timer_create		-
-t_ucontext		-
+t_ucontext		- not available, removed in POSIX.1-2008
 t_vfork			-
 t_wait			- wait6 not implemented
