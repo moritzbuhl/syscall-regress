@@ -20,6 +20,7 @@ t_msgget	- remove msgget_limit test
 t_poll 		- remove pollts_* tests
 t_revoke 	- remove basic tests, revoke only on ttys supported
 t_select 	- remove sigset_t struct as it is int on OpenBSD
+t_wait_noproc	- waitid and wait6 are not implemented
 
 Failing tests:
 t_mlock		- wrong errno, succeeds where not expected, POSIX imprecise
@@ -62,6 +63,5 @@ t_swapcontext		-
 t_timer_create		-
 t_ucontext		-
 t_vfork			-
-t_wait			-
-t_wait_noproc		-
+t_wait			- wait6 not implemented
 t_wait_noproc_wnohang	-

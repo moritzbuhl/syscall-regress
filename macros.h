@@ -53,3 +53,7 @@ sysctlbyname(char* s, void *oldp, size_t *oldlenp, void *newp, size_t newlen)
 
 /* t_write.c */
 #define _PATH_DEVZERO	"/dev/zero"
+
+/* t_wait_noproc.c */
+#define ___STRING(x)	#x
+#define __BIT(n)	(1 << (n))
