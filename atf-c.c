@@ -1,4 +1,4 @@
-/*	$OpenBSD: atf-c.c,v 1.1.1.1 2019/11/19 19:57:03 bluhm Exp $	*/
+/*	$OpenBSD: atf-c.c,v 1.2 2019/11/22 15:59:53 bluhm Exp $	*/
 /*
  * Copyright (c) 2019 Moritz Buhl <openbsd@moritzbuhl.de>
  *
