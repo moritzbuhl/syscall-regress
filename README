@@ -10,17 +10,19 @@ t_getitimer	t_gettimeofday	t_mkfifo	t_sendrecv	t_umask
 t_getlogin	t_kill		t_msgctl	t_setuid	t_write
 
 Tests passing after adjustments:
-t_chroot	- fchroot is not implemented
-t_clock_gettime	- requires sysctlbyname
-t_dup		- OpenBSD dup3 is similar to Linux dup3
-t_fsync		- replace mkstemp
-t_getrusage	- no expected fail, PR kern/30115 is NetBSD, work more
-t_mknod 	- remove tests for unsupported file types
-t_msgget	- remove msgget_limit test
-t_poll 		- remove pollts_* tests
-t_ptrace 	- change EPERM -> EINVAL for PT_ATTACH of a parent
-t_revoke 	- remove basic tests, revoke only on ttys supported
-t_select 	- remove sigset_t struct as it is int on OpenBSD
+t_chroot		- fchroot is not implemented
+t_clock_gettime		- requires sysctlbyname
+t_dup			- OpenBSD dup3 is similar to Linux dup3
+t_fsync			- replace mkstemp
+t_getrusage		- no expected fail, PR kern/30115 is NetBSD, work more
+t_mknod 		- remove tests for unsupported file types
+t_msgget		- remove msgget_limit test
+t_poll 			- remove pollts_* tests
+t_ptrace 		- change EPERM -> EINVAL for PT_ATTACH of a parent
+t_revoke 		- remove basic tests, revoke only on ttys supported
+t_select 		- remove sigset_t struct as it is int on OpenBSD
+t_wait_noproc		- waitid and wait6 are not implemented
+t_wait_noproc_wnohang	- waitid and wait6 are not implemented
 
 Failing tests:
 t_mlock		- wrong errno, succeeds where not expected, POSIX imprecise
@@ -36,7 +38,7 @@ t_clock_nanosleep	- not available
 t_clone			- not available
 t_connect		-
 t_fork			-
-t_getcontext		-
+t_getcontext		- not available, removed in POSIX.1-2008
 t_issetugid		-
 t_kevent		-
 t_lwp_create		- not available
@@ -58,10 +60,8 @@ t_sendmmsg		-
 t_setrlimit		-
 t_sigqueue		-
 t_sigtimedwait		-
-t_swapcontext		-
+t_swapcontext		- not available, removed in POSIX.1-2008
 t_timer_create		-
-t_ucontext		-
+t_ucontext		- not available, removed in POSIX.1-2008
 t_vfork			-
 t_wait			-
-t_wait_noproc		-
-t_wait_noproc_wnohang	-
