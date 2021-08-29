@@ -64,4 +64,4 @@ t_swapcontext		- not available, removed in POSIX.1-2008
 t_timer_create		- not implemented, added in POSIX.1-2004
 t_ucontext		- not available, removed in POSIX.1-2008
 t_vfork			-
-t_wait			-
+t_wait			- wait6 is not available, not POSIX
