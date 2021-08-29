@@ -52,6 +52,7 @@ PROGS +=	t_msync
 PROGS +=	t_pipe
 PROGS +=	t_pipe2
 PROGS +=	t_poll
+PROGS +=	t_ppoll
 PROGS +=	t_ptrace
 PROGS +=	t_revoke
 PROGS +=	t_select
