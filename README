@@ -39,7 +39,7 @@ t_clock_nanosleep	- not available
 t_clone			- not available
 t_fork			-
 t_getcontext		- not available, removed in POSIX.1-2008
-t_issetugid		-
+t_issetugid		- works as iplemented
 t_kevent		-
 t_lwp_create		- not available
 t_lwp_ctl		- not available
