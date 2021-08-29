@@ -34,6 +34,7 @@ PROGS +=	t_dup
 PROGS +=	t_fsync
 PROGS +=	t_getgroups t_getitimer t_getlogin t_getpid t_getrusage
 PROGS +=	t_getsid t_getsockname t_gettimeofday
+PROGS +=	t_kevent
 PROGS +=	t_kill
 PROGS +=	t_link t_listen
 PROGS +=	t_mkdir t_mkfifo t_mknod t_mlock t_mmap

@@ -16,6 +16,7 @@ t_clock_gettime		- requires sysctlbyname
 t_dup			- OpenBSD dup3 is similar to Linux dup3
 t_fsync			- replace mkstemp
 t_getrusage		- no expected fail, PR kern/30115 is NetBSD, work more
+t_kevent		- no EVFILT_USER and DRVCTLDEV
 t_mknod 		- remove tests for unsupported file types
 t_msgget		- remove msgget_limit test
 t_poll 			- remove pollts_* tests
@@ -40,7 +41,6 @@ t_clone			- not available
 t_fork			-
 t_getcontext		- not available, removed in POSIX.1-2008
 t_issetugid		- works as iplemented
-t_kevent		-
 t_lwp_create		- not available
 t_lwp_ctl		- not available
 t_mincore		- removed
