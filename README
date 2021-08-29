@@ -41,15 +41,21 @@ t_unlink	- wrong errno according to POSIX
 Excluded tests:
 t_clock_nanosleep	- not available
 t_clone			- not available
+t_futex_ops
+t_futex_robust
 t_getcontext		- not available, removed in POSIX.1-2008
+t_getrandom		- not available
 t_issetugid		- works as iplemented
 t_lwp_create		- not available
 t_lwp_ctl		- not available
 t_mincore		- removed
 t_mprotect		- no exec_prot_support and no return_one in libc
 t_nanosleep		- not available
+t_pollts
 t_posix_fadvise		- optional POSIX Advisory Information
 t_posix_fallocate	- optional POSIX Advisory Information
+t_ppoll
+t_ptrace_sigchld
 t_ptrace_wait		-
 t_ptrace_wait3		-
 t_ptrace_wait4		-
@@ -58,6 +64,7 @@ t_ptrace_waitid		-
 t_ptrace_waitpid	-
 t_recvmmsg		- not implemented, not POSIX
 t_sendmmsg		- not implemented, not POSIX
+t_sigaltstack
 t_sigqueue		- not implemented, added in POSIX.1-2004
 t_sigtimedwait		- not implemented, added in POSIX.1-2004
 t_swapcontext		- not available, removed in POSIX.1-2008
