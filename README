@@ -41,8 +41,8 @@ t_unlink	- wrong errno according to POSIX
 Excluded tests:
 t_clock_nanosleep	- not available
 t_clone			- not available
-t_futex_ops
-t_futex_robust
+t_futex_ops		- no lwp
+t_futex_robust		- no lwp
 t_getcontext		- not available, removed in POSIX.1-2008
 t_getrandom		- not available
 t_issetugid		- works as iplemented
