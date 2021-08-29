@@ -3,12 +3,13 @@ Regression tests for system calls ported from NetBSD.
 Reimplement ATF with many hacks to adjust the tests as little as possible.
 
 Tests passing without source file adjustments:
-t_access	t_getpid	t_listen	t_pipe		t_umask
-t_bind		t_getsid	t_mkdir		t_sendrecv	t_write
-t_conect	t_getsockname	t_mkfifo	t_setuid
-t_getgroups	t_gettimeofday	t_msgctl	t_sigaction
-t_getitimer	t_kill		t_msgsnd	t_socketpair
-t_getlogin	t_link		t_msync		t_truncate
+t_access	t_getsid	t_mkdir		t_setuid
+t_bind		t_getsockname	t_mkfifo	t_sigaction
+t_conect	t_gettimeofday	t_msgctl	t_socketpair
+t_getgroups	t_kill		t_msgsnd	t_truncate
+t_getitimer	t_link		t_msync		t_umask
+t_getlogin	t_listen	t_pipe		t_write
+t_getpid	t_minherit	t_sendrecv
 
 Tests passing after adjustments:
 t_chroot		- fchroot is not implemented
@@ -44,7 +45,6 @@ t_issetugid		- works as iplemented
 t_lwp_create		- not available
 t_lwp_ctl		- not available
 t_mincore		- removed
-t_minherit		-
 t_mprotect		-
 t_nanosleep		- not available
 t_posix_fadvise		-
