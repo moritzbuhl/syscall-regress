@@ -24,6 +24,7 @@ t_poll 			- remove pollts_* tests
 t_ptrace 		- change EPERM -> EINVAL for PT_ATTACH of a parent
 t_revoke 		- remove basic tests, revoke only on ttys supported
 t_select 		- remove sigset_t struct as it is int on OpenBSD
+t_setrlimit		- remove unsupported resource parameters and lwp
 t_wait_noproc		- waitid and wait6 are not implemented
 t_wait_noproc_wnohang	- waitid and wait6 are not implemented
 
@@ -57,7 +58,6 @@ t_ptrace_waitid		-
 t_ptrace_waitpid	-
 t_recvmmsg		- not implemented, not POSIX
 t_sendmmsg		- not implemented, not POSIX
-t_setrlimit		-
 t_sigqueue		-
 t_sigtimedwait		-
 t_swapcontext		- not available, removed in POSIX.1-2008

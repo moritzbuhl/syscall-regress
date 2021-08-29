@@ -76,6 +76,7 @@ ATF_TC_FUNCTIONS(fn)
 #define ATF_CHECK		ATF_REQUIRE
 #define ATF_CHECK_MSG		ATF_REQUIRE_MSG
 #define ATF_CHECK_EQ		ATF_REQUIRE_EQ
+#define ATF_CHECK_ERRNO		ATF_REQUIRE_ERRNO
 
 #define atf_req(exp, err, msg, ...)					\
 	atf_require(exp, err, #exp, __FILE__, __LINE__, NULL)
