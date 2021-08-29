@@ -45,7 +45,7 @@ t_issetugid		- works as iplemented
 t_lwp_create		- not available
 t_lwp_ctl		- not available
 t_mincore		- removed
-t_mprotect		-
+t_mprotect		- no exec_prot_support and no return_one in libc
 t_nanosleep		- not available
 t_posix_fadvise		-
 t_posix_fallocate	-
