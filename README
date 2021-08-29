@@ -37,6 +37,7 @@ t_pipe2 	- closefrom(4) == -1, remove F_GETNOSIGPIPE and nosigpipe test
 t_stat 		- invalid GID with doas
 t_syscall	- SIGSEGV
 t_unlink	- wrong errno according to POSIX
+t_vfork		- !(((status) & 0177) == 0) evaluated to false
 
 Excluded tests:
 t_clock_nanosleep	- not available
@@ -69,5 +70,4 @@ t_sigtimedwait		- not implemented, added in POSIX.1-2004
 t_swapcontext		- not available, removed in POSIX.1-2008
 t_timer_create		- not implemented, added in POSIX.1-2004
 t_ucontext		- not available, removed in POSIX.1-2008
-t_vfork			-
 t_wait			- wait6 is not available, not POSIX
