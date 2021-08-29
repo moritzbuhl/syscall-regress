@@ -15,6 +15,7 @@ Tests passing after adjustments:
 t_chroot		- fchroot is not implemented
 t_clock_gettime		- requires sysctlbyname
 t_dup			- OpenBSD dup3 is similar to Linux dup3
+t_fork			- add reallocarr function, remove clone(2) tests
 t_fsync			- replace mkstemp
 t_getrusage		- no expected fail, PR kern/30115 is NetBSD, work more
 t_kevent		- no EVFILT_USER and DRVCTLDEV
@@ -40,7 +41,6 @@ t_unlink	- wrong errno according to POSIX
 Excluded tests:
 t_clock_nanosleep	- not available
 t_clone			- not available
-t_fork			-
 t_getcontext		- not available, removed in POSIX.1-2008
 t_issetugid		- works as iplemented
 t_lwp_create		- not available

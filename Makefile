@@ -31,6 +31,7 @@ PROGS +=	t_bind
 PROGS +=	t_chroot t_clock_gettime
 PROGS +=	t_connect
 PROGS +=	t_dup
+PROGS +=	t_fork
 PROGS +=	t_fsync
 PROGS +=	t_getgroups t_getitimer t_getlogin t_getpid t_getrusage
 PROGS +=	t_getsid t_getsockname t_gettimeofday
