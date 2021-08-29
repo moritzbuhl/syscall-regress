@@ -100,6 +100,10 @@ ATF_TC_BODY(kqueue_desc_passing, tc)
 
 	child = fork();
 	if (child == 0) {
+#ifdef __OpenBSD__
+		sleep(1);
+		exit(0);
+#endif
 		close(s[0]);
 
 		iov.iov_base = &storage;
