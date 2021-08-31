@@ -66,7 +66,6 @@ PROGS +=	t_stat
 PROGS +=	t_syscall
 PROGS +=	t_truncate
 PROGS +=	t_umask t_unlink
-PROGS +=	t_vfork
 PROGS +=	t_wait_noproc
 PROGS +=	t_wait_noproc_wnohang
 PROGS +=	t_write
