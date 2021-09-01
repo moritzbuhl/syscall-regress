@@ -406,9 +406,7 @@ NESTED(nested_clone_vfork, clone, CLONE_VFORK)
 ATF_TP_ADD_TCS(tp)
 {
 	ATF_TP_ADD_TC(tp, raise1);
-#if defined(__OpenBSD__) && !defined(VFORK)
 	ATF_TP_ADD_TC(tp, raise2);
-#endif
 	ATF_TP_ADD_TC(tp, raise3);
 	ATF_TP_ADD_TC(tp, raise4);
 	ATF_TP_ADD_TC(tp, raise5);
