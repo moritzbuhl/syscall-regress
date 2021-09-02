@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /*	$NetBSD: t_fork.c,v 1.4 2019/04/06 15:41:54 kamil Exp $	*/
 
 /*-

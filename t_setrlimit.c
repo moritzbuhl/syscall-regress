@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /* $NetBSD: t_setrlimit.c,v 1.7 2020/10/13 06:58:57 rin Exp $ */
 
 /*-

@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /*	$NetBSD: t_pollts.c,v 1.1 2020/07/17 15:34:17 kamil Exp $	*/
 
 /*-
