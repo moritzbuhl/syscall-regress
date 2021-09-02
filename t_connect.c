@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_connect.c,v 1.1 2021/09/02 12:40:44 mbuhl Exp $	*/
 /*	$NetBSD: t_connect.c,v 1.3 2017/01/13 20:09:48 christos Exp $	*/
 /*
  * Copyright (c) 2007, 2008 The NetBSD Foundation, Inc.

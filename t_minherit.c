@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_minherit.c,v 1.1 2021/09/02 12:40:44 mbuhl Exp $	*/
 /* $NetBSD: t_minherit.c,v 1.1 2014/07/18 12:34:52 christos Exp $ */
 
 /*-

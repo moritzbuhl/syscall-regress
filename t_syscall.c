@@ -1,4 +1,4 @@
-/*	$OpenBSD: t_syscall.c,v 1.2 2020/11/10 14:43:14 bluhm Exp $	*/
+/*	$OpenBSD: t_syscall.c,v 1.3 2021/09/02 12:40:44 mbuhl Exp $	*/
 /*	$NetBSD: t_syscall.c,v 1.4 2021/01/18 05:44:20 simonb Exp $	*/
 
 /*-

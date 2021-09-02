@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_sigaltstack.c,v 1.1 2021/09/02 12:40:44 mbuhl Exp $	*/
 /* $NetBSD: t_sigaltstack.c,v 1.2 2020/05/01 21:35:30 christos Exp $ */
 
 /*-

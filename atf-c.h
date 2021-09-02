@@ -1,4 +1,4 @@
-/*	$OpenBSD: atf-c.h,v 1.2 2021/06/09 19:42:46 mortimer Exp $	*/
+/*	$OpenBSD: atf-c.h,v 1.3 2021/09/02 12:40:44 mbuhl Exp $	*/
 /*
  * Copyright (c) 2019 Moritz Buhl <openbsd@moritzbuhl.de>
  *

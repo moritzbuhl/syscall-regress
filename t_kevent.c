@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_kevent.c,v 1.1 2021/09/02 12:40:44 mbuhl Exp $	*/
 /*	$NetBSD: t_kevent.c,v 1.9 2020/10/31 01:08:32 christos Exp $ */
 
 /*-

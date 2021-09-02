@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_wait_noproc_wnohang.c,v 1.1 2021/09/02 12:40:44 mbuhl Exp $	*/
 /* $NetBSD: t_wait_noproc_wnohang.c,v 1.1 2016/11/06 15:03:30 kamil Exp $ */
 
 /*-
