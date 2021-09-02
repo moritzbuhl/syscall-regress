@@ -55,6 +55,7 @@ sysctlbyname(char* s, void *oldp, size_t *oldlenp, void *newp, size_t newlen)
 /* t_fork.c */
 #define kinfo_proc2	kinfo_proc
 #define KERN_PROC2	KERN_PROC
+#define reallocarr(pp, n, s)	((*pp = reallocarray(*pp, n, s)), *pp == NULL)
 
 /* t_mlock.c */
 #define MAP_WIRED	__MAP_NOREPLACE

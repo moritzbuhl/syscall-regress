@@ -56,7 +56,7 @@ t_nanosleep		- not available
 t_pollts		- not available
 t_posix_fadvise		- optional POSIX Advisory Information
 t_posix_fallocate	- optional POSIX Advisory Information
-t_ptrace_sigchld
+t_ptrace_sigchld	-
 t_ptrace_wait		-
 t_ptrace_wait3		-
 t_ptrace_wait4		-

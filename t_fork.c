@@ -46,49 +46,6 @@ __RCSID("$NetBSD: t_fork.c,v 1.4 2019/04/06 15:41:54 kamil Exp $");
 
 #include "atf-c.h"
 
-#ifdef __OpenBSD__
-#define SQRT_SIZE_MAX (((size_t)1) << (sizeof(size_t) * CHAR_BIT / 2))
-int
-reallocarr(void *ptr, size_t number, size_t size)
-{
-	int saved_errno, result;
-	void *optr;
-	void *nptr;
-
-	saved_errno = errno;
-	memcpy(&optr, ptr, sizeof(ptr));
-	if (number == 0 || size == 0) {
-		free(optr);
-		nptr = NULL;
-		memcpy(ptr, &nptr, sizeof(ptr));
-		errno = saved_errno;
-		return 0;
-	}
-
-	/*
-	 * Try to avoid division here.
-	 *
-	 * It isn't possible to overflow during multiplication if neither
-	 * operand uses any of the most significant half of the bits.
-	 */
-	if (__predict_false((number|size) >= SQRT_SIZE_MAX &&
-	                    number > SIZE_MAX / size)) {
-		errno = saved_errno;
-		return EOVERFLOW;
-	}
-
-	nptr = realloc(optr, number * size);
-	if (__predict_false(nptr == NULL)) {
-		result = errno;
-	} else {
-		result = 0;
-		memcpy(ptr, &nptr, sizeof(ptr));
-	}
-	errno = saved_errno;
-	return result;
-}
-#endif
-
 #ifdef VFORK
 #define FORK vfork
 #else
