@@ -71,23 +71,22 @@ ATF_TC_BODY(waitpid, tc)
 	ATF_REQUIRE_ERRNO(ECHILD, waitpid(WAIT_ANY, NULL, TWAIT_OPTION) == -1);
 }
 
-/*
- * Adjusted for OpenBSD, not available
- * ATF_TC(waitid);
- * ATF_TC_HEAD(waitid, tc)
- * {
- * 	atf_tc_set_md_var(tc, "descr",
- * 	    "Test that waitid(2) returns ECHILD for P_ALL and option %s",
- * 	    ___STRING(TWAIT_OPTION));
- * }
- * 
- * ATF_TC_BODY(waitid, tc)
- * {
- * 	ATF_REQUIRE_ERRNO(ECHILD,
- * 	    waitid(P_ALL, 0, NULL,
- * 	        WTRAPPED | WEXITED | TWAIT_OPTION) == -1);
- * }
- */
+#ifndef __OpenBSD__
+ATF_TC(waitid);
+ATF_TC_HEAD(waitid, tc)
+{
+	atf_tc_set_md_var(tc, "descr",
+	    "Test that waitid(2) returns ECHILD for P_ALL and option %s",
+	    ___STRING(TWAIT_OPTION));
+}
+
+ATF_TC_BODY(waitid, tc)
+{
+	ATF_REQUIRE_ERRNO(ECHILD,
+	    waitid(P_ALL, 0, NULL,
+	        WTRAPPED | WEXITED | TWAIT_OPTION) == -1);
+}
+#endif
 
 ATF_TC(wait3);
 ATF_TC_HEAD(wait3, tc)
@@ -115,7 +114,7 @@ ATF_TC_BODY(wait4, tc)
 	    wait4(WAIT_ANY, NULL, TWAIT_OPTION, NULL) == -1);
 }
 
-/*
+#ifndef __OpenBSD__
  * Adjusted for OpenBSD, not available
  * ATF_TC(wait6);
  * ATF_TC_HEAD(wait6, tc)
@@ -137,46 +136,40 @@ ATF_TC_BODY(wait4, tc)
  * Generator of valid combinations of options
  * Usage: i = 0; while ((o = get_options_wait6(i++)) != -1) {}
  */
-/*
- * Adjusted for OpenBSD, not used
- * static int
- * get_options6(size_t pos)
- * {
- * 	int rv = 0;
- * 	size_t n;
- */
+static int
+get_options6(size_t pos)
+{
+	int rv = 0;
+	size_t n;
 	/*
 	 * waitid(2) must specify at least one of WEXITED, WUNTRACED,
 	 * WSTOPPED, WTRAPPED or WCONTINUED. Single option WNOWAIT
 	 * isn't valid.
 	 */
-/*
- * 	const int matrix[] = {
- * 		WNOWAIT,	// First in order to blacklist it easily
- * 		WEXITED,
- * 		WUNTRACED,
- * 		WSTOPPED,	// SUS compatibility, equal to WUNTRACED
- * 		WTRAPPED,
- * 		WCONTINUED
- * 	};
- *
- * 	const size_t M = (1 << __arraycount(matrix)) - 1;
- */
+	const int matrix[] = {
+		WNOWAIT,	// First in order to blacklist it easily
+		WEXITED,
+		WUNTRACED,
+		WSTOPPED,	// SUS compatibility, equal to WUNTRACED
+		WTRAPPED,
+		WCONTINUED
+	};
+
+	const size_t M = (1 << __arraycount(matrix)) - 1;
 	/* Skip empty and sole WNOWAIT option */
-/*
- * 	pos+=2;
- *
- * 	if (pos > M)
- * 		return -1;
- *
- * 	for (n = 0; n < __arraycount(matrix); n++) {
- * 		if (pos & __BIT(n))
- * 			rv |= matrix[n];
- * 	}
- *
- * 	return rv;
- * }
- */
+	pos+=2;
+
+	if (pos > M)
+		return -1;
+
+	for (n = 0; n < __arraycount(matrix); n++) {
+		if (pos & __BIT(n))
+			rv |= matrix[n];
+	}
+
+	return rv;
+}
+#endif
 
 /*
  * Generator of valid combinations of options
@@ -190,27 +183,24 @@ get_options4(size_t pos)
 
 	const int special[] = {
 		0,
-/*
- * Adjusted for OpenBSD, not available
- * 		WALLSIG,
- * 		WALTSIG,
- * 		__WALL,		// Linux compatibility, equal to WALLSIG
- * 		__WCLONE	// Linux compatibility, equal to WALTSIG
- */
+#ifndef __OpenBSD__
+		WALLSIG,
+		WALTSIG,
+		__WALL,		// Linux compatibility, equal to WALLSIG
+		__WCLONE	// Linux compatibility, equal to WALTSIG
+#endif
 	};
 
 	const int matrix[] = {
-/*
- * Adjusted for OpenBSD, not available
- * 		WNOWAIT,
- * 		WEXITED,
- */
+#ifndef __OpenBSD__
+		WNOWAIT,
+		WEXITED,
+#endif
 		WUNTRACED,
-/*
- * Adjusted for OpenBSD, not available
- * 		WSTOPPED,	// SUS compatibility, equal to WUNTRACED
- * 		WTRAPPED,
- */
+#ifndef __OpenBSD__
+		WSTOPPED,	// SUS compatibility, equal to WUNTRACED
+		WTRAPPED,
+#endif
 		WCONTINUED
 	};
 
@@ -256,30 +246,29 @@ ATF_TC_BODY(waitpid_options, tc)
 	}
 }
 
-/*
- * Adjusted for OpenBSD, not available
- * ATF_TC(waitid_options);
- * ATF_TC_HEAD(waitid_options, tc)
- * {
- * 	atf_tc_set_md_var(tc, "descr",
- * 	    "Test that waitid(2) returns ECHILD for P_ALL and valid "
- * 	    "combination of options with%s WNOHANG",
- * 	    TWAIT_OPTION == 0 ? "out" : "");
- * }
- *
- * ATF_TC_BODY(waitid_options, tc)
- * {
- * 	size_t i = 0;
- * 	int o;
- *
- * 	while((o = get_options6(i++)) != -1) {
- * 		printf("Testing waitid(2) with options %x\n", o);
- *
- * 		ATF_REQUIRE_ERRNO(ECHILD,
- * 		    waitid(P_ALL, 0, NULL, o | TWAIT_OPTION) == -1);
- * 	}
- * }
- */
+#ifndef __OpenBSD__
+ATF_TC(waitid_options);
+ATF_TC_HEAD(waitid_options, tc)
+{
+	atf_tc_set_md_var(tc, "descr",
+	    "Test that waitid(2) returns ECHILD for P_ALL and valid "
+	    "combination of options with%s WNOHANG",
+	    TWAIT_OPTION == 0 ? "out" : "");
+}
+
+ATF_TC_BODY(waitid_options, tc)
+{
+	size_t i = 0;
+	int o;
+
+	while((o = get_options6(i++)) != -1) {
+		printf("Testing waitid(2) with options %x\n", o);
+
+		ATF_REQUIRE_ERRNO(ECHILD,
+		    waitid(P_ALL, 0, NULL, o | TWAIT_OPTION) == -1);
+	}
+}
+#endif
 
 ATF_TC(wait3_options);
 ATF_TC_HEAD(wait3_options, tc)
@@ -322,29 +311,28 @@ ATF_TC_BODY(wait4_options, tc)
 	}
 }
 
-/*
- * Adjusted for OpenBSD, not available
- * ATF_TC(wait6_options);
- * ATF_TC_HEAD(wait6_options, tc)
- * {
- * 	atf_tc_set_md_var(tc, "descr",
- * 	    "Test that wait6(2) returns ECHILD for P_ALL and option %s",
- * 	    ___STRING(TWAIT_OPTION));
- * }
- * 
- * ATF_TC_BODY(wait6_options, tc)
- * {
- * 	size_t i = 0;
- * 	int o;
- * 
- * 	while((o = get_options6(i++)) != -1) {
- * 		printf("Testing wait6(2) with options %x\n", o);
- * 
- * 		ATF_REQUIRE_ERRNO(ECHILD,
- * 		    wait6(P_ALL, 0, NULL, o | TWAIT_OPTION, NULL, NULL) == -1);
- * 	}
- * }
- */
+#ifndef __OpenBSD__
+ATF_TC(wait6_options);
+ATF_TC_HEAD(wait6_options, tc)
+{
+	atf_tc_set_md_var(tc, "descr",
+	    "Test that wait6(2) returns ECHILD for P_ALL and option %s",
+	    ___STRING(TWAIT_OPTION));
+}
+
+ATF_TC_BODY(wait6_options, tc)
+{
+	size_t i = 0;
+	int o;
+
+	while((o = get_options6(i++)) != -1) {
+		printf("Testing wait6(2) with options %x\n", o);
+
+		ATF_REQUIRE_ERRNO(ECHILD,
+		    wait6(P_ALL, 0, NULL, o | TWAIT_OPTION, NULL, NULL) == -1);
+	}
+}
+#endif
 
 ATF_TP_ADD_TCS(tp)
 {
@@ -353,28 +341,24 @@ ATF_TP_ADD_TCS(tp)
 	ATF_TP_ADD_TC(tp, wait);
 #endif
 	ATF_TP_ADD_TC(tp, waitpid);
-	/*
-	 * Adjusted for OpenBSD, not available
-	 * ATF_TP_ADD_TC(tp, waitid);
-	 */
+#ifndef __OpenBSD__
+	ATF_TP_ADD_TC(tp, waitid);
+#endif
 	ATF_TP_ADD_TC(tp, wait3);
 	ATF_TP_ADD_TC(tp, wait4);
-	/*
-	 * Adjusted for OpenBSD, not available
-	 * ATF_TP_ADD_TC(tp, wait6);
-	 */
+#ifndef __OpenBSD__
+	ATF_TP_ADD_TC(tp, wait6);
+#endif
 
 	ATF_TP_ADD_TC(tp, waitpid_options);
-	/*
-	 * Adjusted for OpenBSD, not available
-	 * ATF_TP_ADD_TC(tp, waitid_options);
-	 */
+#ifndef __OpenBSD__
+	ATF_TP_ADD_TC(tp, waitid_options);
+#endif
 	ATF_TP_ADD_TC(tp, wait3_options);
 	ATF_TP_ADD_TC(tp, wait4_options);
-	/*
-	 * Adjusted for OpenBSD, not available
-	 * ATF_TP_ADD_TC(tp, wait6_options);
-	 */
+#ifndef __OpenBSD__
+	ATF_TP_ADD_TC(tp, wait6_options);
+#endif
 
 	return atf_no_error();
 }
