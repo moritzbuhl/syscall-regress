@@ -1,4 +1,4 @@
-/*	$OpenBSD: macros.h,v 1.3 2021/09/02 12:40:44 mbuhl Exp $	*/
+/*	$OpenBSD: macros.h,v 1.4 2021/09/02 15:28:41 mbuhl Exp $	*/
 /* Public domain - Moritz Buhl */
 
 #include <sys/param.h>

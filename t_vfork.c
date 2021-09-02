@@ -1,4 +1,4 @@
-/*	$OpenBSD$	*/
+/*	$OpenBSD: t_vfork.c,v 1.1 2021/09/02 15:28:41 mbuhl Exp $	*/
 /*	$NetBSD: t_vfork.c,v 1.1 2018/05/18 06:39:58 kamil Exp $	*/
 
 /*-

@@ -1,4 +1,4 @@
-#	$OpenBSD: Makefile,v 1.10 2020/12/17 00:51:11 bluhm Exp $
+#	$OpenBSD: Makefile,v 1.12 2021/09/02 15:28:41 mbuhl Exp $
 
 # Copyright (c) 2019 Moritz Buhl <openbsd@moritzbuhl.de>
 # Copyright (c) 2019 Alexander Bluhm <bluhm@openbsd.org>
