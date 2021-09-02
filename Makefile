@@ -78,7 +78,11 @@ REGRESS_EXPECTED_FAILURES +=	run-t_msgrcv-3
 REGRESS_EXPECTED_FAILURES +=	run-t_pipe2-2
 REGRESS_EXPECTED_FAILURES +=	run-t_stat-5
 REGRESS_EXPECTED_FAILURES +=	run-t_unlink-2
-REGRESS_EXPECTED_FAILURES +=	run-t_vfork-2
+
+run-t_vfork-2:
+	# SIGSTOP with vfork is masked before exec(3)/exit(3)
+	# see NetBSD: kern_sig.c,v 1.345
+	@echo DISABLED
 
 . for p in ${PROGS}
 SRCS_$p =		$p.c atf-c.c
