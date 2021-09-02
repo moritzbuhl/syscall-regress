@@ -1,3 +1,4 @@
+/*	$OpenBSD$	*/
 /*	$NetBSD: t_kevent.c,v 1.9 2020/10/31 01:08:32 christos Exp $ */
 
 /*-
@@ -45,7 +46,9 @@ __RCSID("$NetBSD: t_kevent.c,v 1.9 2020/10/31 01:08:32 christos Exp $");
 #include <unistd.h>
 #include <fcntl.h>
 #include <err.h>
-//#include <sys/drvctlio.h>
+#ifndef __OpenBSD__
+#include <sys/drvctlio.h>
+#endif
 #include <sys/event.h>
 #include <sys/time.h>
 #include <sys/socket.h>
